@@ -1,0 +1,9 @@
+collect/php_automated_public/vendor/*
+collect/php_automated_public/composer.lock
+collect/php_automated_public/conf.php
+test_data/*
+.idea
+**/*.pyc
+.rsync-exclude
+Makefile
+results/
