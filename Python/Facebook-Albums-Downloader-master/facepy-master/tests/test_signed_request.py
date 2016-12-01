@@ -1,39 +1,37 @@
 """Tests for the ``signed_request`` module."""
 
-
 from datetime import datetime, timedelta
-from nose.tools import *
 
 from facepy import SignedRequest
-
+from nose.tools import *
 
 TEST_ACCESS_TOKEN = '181259711925270|1570a553ad6605705d1b7a5f.1-499729129|8XqMRhCWDKtpG-i_zRkHBDSsqqk'
 
 TEST_SIGNED_REQUEST = u'' \
-    'mnrG8Wc9CH_rh-GCqq97GFAPOh6AY7cMO8IYVKb6Pa4.eyJhbGdvcml0aG0iOi' \
-    'JITUFDLVNIQTI1NiIsImV4cGlyZXMiOjAsImlzc3VlZF9hdCI6MTMwNjE3OTkw' \
-    'NCwib2F1dGhfdG9rZW4iOiIxODEyNTk3MTE5MjUyNzB8MTU3MGE1NTNhZDY2MD' \
-    'U3MDVkMWI3YTVmLjEtNDk5NzI5MTI5fDhYcU1SaENXREt0cEctaV96UmtIQkRT' \
-    'c3FxayIsInVzZXIiOnsiY291bnRyeSI6Im5vIiwibG9jYWxlIjoiZW5fVVMiLC' \
-    'JhZ2UiOnsibWluIjoyMX19LCJ1c2VyX2lkIjoiNDk5NzI5MTI5In0'
+                      'mnrG8Wc9CH_rh-GCqq97GFAPOh6AY7cMO8IYVKb6Pa4.eyJhbGdvcml0aG0iOi' \
+                      'JITUFDLVNIQTI1NiIsImV4cGlyZXMiOjAsImlzc3VlZF9hdCI6MTMwNjE3OTkw' \
+                      'NCwib2F1dGhfdG9rZW4iOiIxODEyNTk3MTE5MjUyNzB8MTU3MGE1NTNhZDY2MD' \
+                      'U3MDVkMWI3YTVmLjEtNDk5NzI5MTI5fDhYcU1SaENXREt0cEctaV96UmtIQkRT' \
+                      'c3FxayIsInVzZXIiOnsiY291bnRyeSI6Im5vIiwibG9jYWxlIjoiZW5fVVMiLC' \
+                      'JhZ2UiOnsibWluIjoyMX19LCJ1c2VyX2lkIjoiNDk5NzI5MTI5In0'
 
 TEST_SIGNED_REQUEST_UNKNOWN_ALGORITHM = u'' \
-    'HjPZBDNttKrX_DBxH-fD78wmqP5O7eDcvjE9ToayKb0=.eyJ1c2VyX2lkIjoiN' \
-    'Dk5NzI5MTI5IiwiYWxnb3JpdGhtIjoiVU5LTk9XTl9BTEdPUklUSE0iLCJleHB' \
-    'pcmVzIjowLCJvYXV0aF90b2tlbiI6IjE4MTI1OTcxMTkyNTI3MHwxNTcwYTU1M' \
-    '2FkNjYwNTcwNWQxYjdhNWYuMS00OTk3MjkxMjl8OFhxTVJoQ1dES3RwRy1pX3p' \
-    'Sa0hCRFNzcXFrIiwidXNlciI6eyJsb2NhbGUiOiJlbl9VUyIsImNvdW50cnkiO' \
-    'iJubyIsImFnZSI6eyJtYXgiOjk5LCJtaW4iOjIxfX0sImlzc3VlZF9hdCI6MTM' \
-    'wNjE3OTkwNH0='
+                                        'HjPZBDNttKrX_DBxH-fD78wmqP5O7eDcvjE9ToayKb0=.eyJ1c2VyX2lkIjoiN' \
+                                        'Dk5NzI5MTI5IiwiYWxnb3JpdGhtIjoiVU5LTk9XTl9BTEdPUklUSE0iLCJleHB' \
+                                        'pcmVzIjowLCJvYXV0aF90b2tlbiI6IjE4MTI1OTcxMTkyNTI3MHwxNTcwYTU1M' \
+                                        '2FkNjYwNTcwNWQxYjdhNWYuMS00OTk3MjkxMjl8OFhxTVJoQ1dES3RwRy1pX3p' \
+                                        'Sa0hCRFNzcXFrIiwidXNlciI6eyJsb2NhbGUiOiJlbl9VUyIsImNvdW50cnkiO' \
+                                        'iJubyIsImFnZSI6eyJtYXgiOjk5LCJtaW4iOjIxfX0sImlzc3VlZF9hdCI6MTM' \
+                                        'wNjE3OTkwNH0='
 
 TEST_SIGNED_REQUEST_MISSING_PAGE_DATA = u'' \
-    '9B19RL7tj3nvf_SA8_PSFxTZxc7xA3LEjl2ww-OGRlk=.eyJ1c2VyX2lkIjoiN' \
-    'Dk5NzI5MTI5IiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJleHBpcmVzIjo' \
-    'wLCJvYXV0aF90b2tlbiI6IjE4MTI1OTcxMTkyNTI3MHwxNTcwYTU1M2FkNjYwN' \
-    'TcwNWQxYjdhNWYuMS00OTk3MjkxMjl8OFhxTVJoQ1dES3RwRy1pX3pSa0hCRFN' \
-    'zcXFrIiwidXNlciI6eyJsb2NhbGUiOiJlbl9VUyIsImNvdW50cnkiOiJubyIsI' \
-    'mFnZSI6eyJtYXgiOjk5LCJtaW4iOjIxfX0sImlzc3VlZF9hdCI6MTMwNjE3OTk' \
-    'wNCwicGFnZSI6e319'
+                                        '9B19RL7tj3nvf_SA8_PSFxTZxc7xA3LEjl2ww-OGRlk=.eyJ1c2VyX2lkIjoiN' \
+                                        'Dk5NzI5MTI5IiwiYWxnb3JpdGhtIjoiSE1BQy1TSEEyNTYiLCJleHBpcmVzIjo' \
+                                        'wLCJvYXV0aF90b2tlbiI6IjE4MTI1OTcxMTkyNTI3MHwxNTcwYTU1M2FkNjYwN' \
+                                        'TcwNWQxYjdhNWYuMS00OTk3MjkxMjl8OFhxTVJoQ1dES3RwRy1pX3pSa0hCRFN' \
+                                        'zcXFrIiwidXNlciI6eyJsb2NhbGUiOiJlbl9VUyIsImNvdW50cnkiOiJubyIsI' \
+                                        'mFnZSI6eyJtYXgiOjk5LCJtaW4iOjIxfX0sImlzc3VlZF9hdCI6MTMwNjE3OTk' \
+                                        'wNCwicGFnZSI6e319'
 
 TEST_FACEBOOK_APPLICATION_SECRET_KEY = '214e4cb484c28c35f18a70a3d735999b'
 

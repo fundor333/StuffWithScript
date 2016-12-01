@@ -19,9 +19,9 @@ if __name__ == "__main__":
 
 """
 
-
 import os
 import sys
+
 ENVIRONMENT = "development"
 CONFIGFILE = None
 
@@ -33,6 +33,7 @@ def get_config_file():
         "staging": "{}/../config/staging.cfg".format(directory),
         "production": "{}/../config/production.cfg".format(directory)
     }.get(ENVIRONMENT, None)
+
 
 CONFIGFILE = get_config_file()
 

@@ -11,10 +11,10 @@ http://www.hackerfactor.com/blog/index.php?/archives/432-Looks-Like-It.html
 
 import argparse
 import hashlib
-import imagehash
 import os
-
 from collections import defaultdict
+
+import imagehash
 from PIL import Image
 
 
@@ -71,14 +71,15 @@ def runOnClass(args, imgs):
                 print("")
     return numFound
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('inplaceDir', type=str,
                         help="Directory of images, divided into "
-                        "subdirectories by class.")
+                             "subdirectories by class.")
     parser.add_argument('--delete', action='store_true',
                         help="Delete the smallest duplicate images instead "
-                        "of just listing them.")
+                             "of just listing them.")
     parser.add_argument('--sha256', action='store_true',
                         help="Show sha256 sum for duplicate images")
     args = parser.parse_args()

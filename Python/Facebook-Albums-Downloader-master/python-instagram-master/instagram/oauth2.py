@@ -1,10 +1,12 @@
-from .json_import import simplejson
-from six.moves.urllib.parse import urlencode
-from httplib2 import Http
-from hashlib import sha256
-import mimetypes
-import six
 import hmac
+import mimetypes
+from hashlib import sha256
+
+import six
+from httplib2 import Http
+from six.moves.urllib.parse import urlencode
+
+from .json_import import simplejson
 
 
 class OAuth2AuthExchangeError(Exception):
@@ -137,14 +139,14 @@ class OAuth2Request(object):
 
     def _full_url(self, path, include_secret=False, include_signed_request=True):
         return "%s://%s%s%s%s%s" % (self.api.protocol,
-                                  self.api.host,
-                                  self.api.base_path,
-                                  path,
-                                  self._auth_query(include_secret),
-                                  self._signed_request(path, {}, include_signed_request, include_secret))
+                                    self.api.host,
+                                    self.api.base_path,
+                                    path,
+                                    self._auth_query(include_secret),
+                                    self._signed_request(path, {}, include_signed_request, include_secret))
 
     def _full_url_with_params(self, path, params, include_secret=False, include_signed_request=True):
-        return (self._full_url(path, include_secret) + 
+        return (self._full_url(path, include_secret) +
                 self._full_query_with_params(params) +
                 self._signed_request(path, params, include_signed_request, include_secret))
 
@@ -234,5 +236,5 @@ class OAuth2Request(object):
             headers.update({"User-Agent": "%s Python Client" % self.api.api_name})
         # https://github.com/jcgregorio/httplib2/issues/173
         # bug in httplib2 w/ Python 3 and disable_ssl_certificate_validation=True
-        http_obj = Http() if six.PY3 else Http(disable_ssl_certificate_validation=True)        
+        http_obj = Http() if six.PY3 else Http(disable_ssl_certificate_validation=True)
         return http_obj.request(url, method, body=body, headers=headers)

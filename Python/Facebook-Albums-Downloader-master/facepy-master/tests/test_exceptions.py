@@ -4,25 +4,25 @@ try:
 except ImportError:
     import pickle
 
-from nose.tools import *
 from facepy import *
+from nose.tools import *
 
 TEST_ERROR_OBJ = {
-  'error': {
-    'message': '<message>',
-    'code': 100,
-    'error_data': {
-      'blame_field_specs': [
-        [
-          'account_id'
-        ]
-      ]
-    },
-    'error_subcode': 1234567,
-    'is_transient': False,
-    'error_user_title': '<error_user_title>',
-    'error_user_msg': '<error_user_msg>'
-  }
+    'error': {
+        'message': '<message>',
+        'code': 100,
+        'error_data': {
+            'blame_field_specs': [
+                [
+                    'account_id'
+                ]
+            ]
+        },
+        'error_subcode': 1234567,
+        'is_transient': False,
+        'error_user_title': '<error_user_title>',
+        'error_user_msg': '<error_user_msg>'
+    }
 }
 
 

@@ -15,7 +15,9 @@
 # this program; if not, write to the Free Software Foundation, Inc., 59 Temple
 # Place - Suite 330, Boston, MA 02111-1307, USA.
 
-import sys, os, time
+import os
+import time
+
 
 def f():
     pid = os.fork()
@@ -33,5 +35,6 @@ def f():
             l.append(open("/tmp/bar%d" % (i,), "w"))
 
         time.sleep(30)
+
 
 if __name__ == '__main__': f()

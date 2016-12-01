@@ -1,6 +1,7 @@
 import base64
 import hashlib
 import hmac
+
 try:
     import simplejson as json
 except ImportError:
@@ -75,16 +76,19 @@ class SignedRequest(object):
         from urlparse import parse_qs
         from . import GraphAPI, get_application_access_token
 
-        app_token = get_application_access_token(self.application_id, self.application_secret_key, api_version=self.api_version)
+        app_token = get_application_access_token(self.application_id, self.application_secret_key,
+                                                 api_version=self.api_version)
         graph = GraphAPI(app_token, version=self.api_version)
 
-        qs = graph.get('oauth/access_token', code=self.raw['code'], redirect_uri='', client_id=self.application_id, client_secret=self.application_secret_key)
+        qs = graph.get('oauth/access_token', code=self.raw['code'], redirect_uri='', client_id=self.application_id,
+                       client_secret=self.application_secret_key)
         self.raw['oauth_token'] = parse_qs(qs)['access_token'][0]
         self.raw['expires'] = time.time() + int(parse_qs(qs)['expires'][0])
         self.raw['user'] = graph.get(self.raw['user_id'])
 
     def parse(cls, signed_request, application_secret_key):
         """Parse a signed request, returning a dictionary describing its payload."""
+
         def decode(encoded):
             padding = '=' * (len(encoded) % 4)
             return base64.urlsafe_b64decode(encoded + padding)

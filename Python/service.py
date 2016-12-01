@@ -1,9 +1,9 @@
-from os.path import splitext, abspath
-from sys import modules
-
 import win32api
 import win32event
 import win32service
+from os.path import splitext, abspath
+from sys import modules
+
 import win32serviceutil
 
 

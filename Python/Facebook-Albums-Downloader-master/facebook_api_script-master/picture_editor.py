@@ -1,6 +1,6 @@
-import sys
-import os
 import logging
+import os
+import sys
 
 log = logging.getLogger()
 log.setLevel(logging.DEBUG)
@@ -11,8 +11,10 @@ log.addHandler(sh)
 
 from PyQt5 import QtGui, QtCore, QtWidgets
 
+
 def size_hint():
     return QtCore.QSize(800, 400)
+
 
 class ImageCropper(QtCore.QObject):
     def __init__(self, parent=None):
@@ -34,6 +36,7 @@ class ImageCropper(QtCore.QObject):
 class MyGraphicScene(QtWidgets.QGraphicsScene):
     rect_signal = QtCore.pyqtSignal(QtCore.QFile, QtCore.QRect)
     resize_signal = QtCore.pyqtSignal(int, int)
+
     def __init__(self, picture_directory=None, parent=None):
         super(MyGraphicScene, self).__init__(parent)
         log.debug(picture_directory)
@@ -71,14 +74,13 @@ class MyGraphicScene(QtWidgets.QGraphicsScene):
 
     def send_rectangle_slot(self):
         self.rect_signal.emit(
-                self.pixmap_filename,
-                QtCore.QRect(self._ellipse_upper_left_x,
-                self._ellipse_upper_left_y,
-                self._ellipse_width,
-                self._ellipse_height))
+            self.pixmap_filename,
+            QtCore.QRect(self._ellipse_upper_left_x,
+                         self._ellipse_upper_left_y,
+                         self._ellipse_width,
+                         self._ellipse_height))
 
         self._next_image_helper()
-                            
 
     def mousePressEvent(self, mouse_event):
         if self.current_ellipse is not None and not mouse_event.buttons() == QtCore.Qt.RightButton:
@@ -93,16 +95,15 @@ class MyGraphicScene(QtWidgets.QGraphicsScene):
             self._ellipse_width = self.initial_radius * 2
 
             self.current_ellipse = self.addRect(
-                    mouse_event.scenePos().x(),
-                    mouse_event.scenePos().y(),
-                    self._ellipse_width,
-                    self._ellipse_height)
+                mouse_event.scenePos().x(),
+                mouse_event.scenePos().y(),
+                self._ellipse_width,
+                self._ellipse_height)
         elif mouse_event.buttons() == QtCore.Qt.RightButton:
             self._x = mouse_event.scenePos().x()
             self._y = mouse_event.scenePos().y()
 
-
-        #self.current_ellipse.setBrush(QtCore.Qt.white)
+        # self.current_ellipse.setBrush(QtCore.Qt.white)
         super(MyGraphicScene, self).mousePressEvent(mouse_event)
 
     def mouseMoveEvent(self, mouse_event):
@@ -117,37 +118,38 @@ class MyGraphicScene(QtWidgets.QGraphicsScene):
                 self._ellipse_upper_left_y = mouse_y
 
             self.current_ellipse.setRect(
-                    self._ellipse_upper_left_x,
-                    self._ellipse_upper_left_y,
-                    self._ellipse_width,
-                    self._ellipse_height)
+                self._ellipse_upper_left_x,
+                self._ellipse_upper_left_y,
+                self._ellipse_width,
+                self._ellipse_height)
 
         elif self._mouse_pressed and mouse_event.buttons() == QtCore.Qt.RightButton and self.current_ellipse is not None:
             self._ellipse_upper_left_x = self._ellipse_upper_left_x - (self._x - mouse_event.scenePos().x())
-            self._ellipse_upper_left_y =self._ellipse_upper_left_y - (self._y - mouse_event.scenePos().y())
+            self._ellipse_upper_left_y = self._ellipse_upper_left_y - (self._y - mouse_event.scenePos().y())
             self._x = mouse_event.scenePos().x()
             self._y = mouse_event.scenePos().y()
             self.current_ellipse.setRect(
-                    self._ellipse_upper_left_x,
-                    self._ellipse_upper_left_y,
-                    self._ellipse_width,
-                    self._ellipse_height)
+                self._ellipse_upper_left_x,
+                self._ellipse_upper_left_y,
+                self._ellipse_width,
+                self._ellipse_height)
 
         super(MyGraphicScene, self).mouseMoveEvent(mouse_event)
 
     def mouseReleaseEvent(self, mouse_event):
         self._mouse_pressed = False
 
+
 # Create QApplicaiton and main window
 app = QtWidgets.QApplication(sys.argv)
 main_window = QtWidgets.QMainWindow()
-#main_window.sizeHint = size_hint
+# main_window.sizeHint = size_hint
 
 
 
 
 file_dir = os.path.dirname(os.path.realpath(__file__))
-picture_directory= os.path.join(file_dir, 'pictures', '')
+picture_directory = os.path.join(file_dir, 'pictures', '')
 # Create scene
 scene = MyGraphicScene(picture_directory)
 image_cropper = ImageCropper()
@@ -164,7 +166,7 @@ push_button = QtWidgets.QPushButton('Finished Cropping!')
 push_button.clicked.connect(scene.send_rectangle_slot)
 
 # FIXME: Implement
-#scene.rect_signal.connect(
+# scene.rect_signal.connect(
 
 layout.addWidget(graphics_view)
 layout.addWidget(push_button)

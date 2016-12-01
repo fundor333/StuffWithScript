@@ -7,9 +7,10 @@ __date__ = '2015.12.30'
 This script (fix-music-tags.py) mass-removes unwanted music tags.
 """
 
-from mutagen.easyid3 import EasyID3
 import argparse
 import glob
+
+from mutagen.easyid3 import EasyID3
 
 
 def fixTags(fname, keep):
@@ -23,6 +24,7 @@ def fixTags(fname, keep):
     for k in delKeys:
         del audio[k]
     audio.save()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

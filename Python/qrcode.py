@@ -57,7 +57,7 @@ byte array type. This parameter must be a valid encoding string or None.
 t will be passed the *content*'s encode/decode methods.
 """
 
-data='Ciao'
+data = 'Ciao'
 namefile = "file"
 
 qrcode = pyqrcode.create(data, error='L')

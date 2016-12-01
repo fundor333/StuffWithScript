@@ -8,6 +8,7 @@ This script computes the mean of a directory of images for Caffe.
 """
 
 import sys
+
 sys.path.append("/home/bamos/repos/caffe-local/python")
 
 import argparse

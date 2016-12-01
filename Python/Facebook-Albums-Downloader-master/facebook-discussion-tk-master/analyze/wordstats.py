@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-from collections import defaultdict
+
 import sys
 import time
+from collections import defaultdict
 
-from pattern.text.de import split, parse
 from libleipzig import Baseform
+from pattern.text.de import split, parse
 from suds import WebFault
 
 LIBLEIPZIG_FOR_LEMMATA = True
@@ -14,7 +15,8 @@ LIBLEIPZIG_FAIL_RETRIES_SLEEP_SEC = 1
 
 STRINGS_STARTWITH_BLACKLIST = ()
 STRINGS_EQUALS_BLACKLIST = ()
-STRINGS_EQUALS_CS_BLACKLIST = ()    # case sensitive
+STRINGS_EQUALS_CS_BLACKLIST = ()  # case sensitive
+
 
 # text = u"""Eine Katze liegt auf einer Matte. Viele Katzen liegen auf vielen Matten. Die Katzen schlafen,
 # die Matten nicht. Die Hunde schlafen auch nicht. Man hört ihr lautes Gebell draußen vor dem Haus. In

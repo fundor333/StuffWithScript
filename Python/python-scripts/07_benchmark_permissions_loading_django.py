@@ -1,12 +1,13 @@
 import os
 import time
+
 import numpy
+
 
 # temp file for benchmarking
 
 
 def timeit(method):
-
     def timed(*args, **kw):
         ts = time.time()
 

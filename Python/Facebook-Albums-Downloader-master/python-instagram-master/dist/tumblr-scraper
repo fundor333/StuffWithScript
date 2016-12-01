@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-import sys
-import os
 import json
+import os
+import sys
 import urlparse
+
 import requests
 
 
@@ -15,8 +16,10 @@ def uprint(msg, newline=True, quiet=False):
         sys.stdout.write("%s%s" % (msg, "\n" if newline else ''))
         sys.stdout.flush()
 
+
 def get_blog_url(name):
     return "http://{name}.tumblr.com/api/read/json".format(name=name)
+
 
 def get_page(url, start=0, num=50):
     args = {}
@@ -33,6 +36,7 @@ def get_page(url, start=0, num=50):
     # Return the result as a dict
     return json.loads(text)
 
+
 def save_photo(url, out, filename):
     r = requests.get(url)
 
@@ -46,6 +50,7 @@ def save_photo(url, out, filename):
                 f.write(chunk)
     uprint("Saved to %s" % (path,))
 
+
 def main():
     global quiet
     quiet = False
@@ -58,9 +63,9 @@ def main():
     blog_name = sys.argv[1]
     out = sys.argv[2]
 
-    uprint("DEBUG: "+blog_name)
-    uprint("DEBUG: "+out)
-    uprint("DEBUG: "+get_blog_url(blog_name))
+    uprint("DEBUG: " + blog_name)
+    uprint("DEBUG: " + out)
+    uprint("DEBUG: " + get_blog_url(blog_name))
 
     # Get the blog URL
     uprint("Scraping %s..." % (blog_name))
@@ -119,6 +124,7 @@ def main():
 
         # Save the photo to disk
         save_photo(url, out, filename)
+
 
 if __name__ == '__main__':
     try:

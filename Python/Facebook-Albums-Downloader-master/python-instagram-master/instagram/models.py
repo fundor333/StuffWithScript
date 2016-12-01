@@ -1,9 +1,9 @@
-from .helper import timestamp_to_datetime
 import six
+
+from .helper import timestamp_to_datetime
 
 
 class ApiModel(object):
-
     @classmethod
     def object_from_dictionary(cls, entry):
         # make dict keys all strings
@@ -27,7 +27,6 @@ class ApiModel(object):
 
 
 class Image(ApiModel):
-
     def __init__(self, url, width, height):
         self.url = url
         self.height = height
@@ -38,13 +37,11 @@ class Image(ApiModel):
 
 
 class Video(Image):
-
     def __unicode__(self):
         return "Video: %s" % self.url
 
 
 class Media(ApiModel):
-
     def __init__(self, id=None, **kwargs):
         self.id = id
         for key, value in six.iteritems(kwargs):
@@ -62,10 +59,8 @@ class Media(ApiModel):
         else:
             return self.videos['low_resolution'].url
 
-
     def get_thumbnail_url(self):
         return self.images['thumbnail'].url
-
 
     def __unicode__(self):
         return "Media: %s" % self.id
@@ -112,7 +107,7 @@ class Media(ApiModel):
         new_media.caption = None
         if entry['caption']:
             new_media.caption = Comment.object_from_dictionary(entry['caption'])
-        
+
         new_media.tags = []
         if entry['tags']:
             for tag in entry['tags']:
@@ -126,7 +121,6 @@ class Media(ApiModel):
 
 
 class MediaShortcode(Media):
-
     def __init__(self, shortcode=None, **kwargs):
         self.shortcode = shortcode
         for key, value in six.iteritems(kwargs):
@@ -182,8 +176,8 @@ class Location(ApiModel):
             point = Point(entry.get('latitude'),
                           entry.get('longitude'))
         location = Location(entry.get('id', 0),
-                       point=point,
-                       name=entry.get('name', ''))
+                            point=point,
+                            name=entry.get('name', ''))
         return location
 
     def __unicode__(self):
@@ -191,7 +185,6 @@ class Location(ApiModel):
 
 
 class User(ApiModel):
-
     def __init__(self, id, *args, **kwargs):
         self.id = id
         for key, value in six.iteritems(kwargs):
@@ -202,7 +195,6 @@ class User(ApiModel):
 
 
 class Relationship(ApiModel):
-
     def __init__(self, incoming_status="none", outgoing_status="none", target_user_is_private=False):
         self.incoming_status = incoming_status
         self.outgoing_status = outgoing_status

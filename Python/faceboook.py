@@ -1,6 +1,6 @@
-import mechanize
 import re
-import csv
+
+import mechanize
 
 user_info = []
 

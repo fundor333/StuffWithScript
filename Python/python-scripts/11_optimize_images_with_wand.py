@@ -1,11 +1,8 @@
 import fnmatch
 import os
 
-# pip install Wand
-from wand.image import Image
-# pip install http://pypi.python.org/packages/source/h/hurry.filesize/hurry.filesize-0.9.tar.gz
 from hurry.filesize import size
-
+from wand.image import Image
 
 # constants
 PATH = '/../../../..'

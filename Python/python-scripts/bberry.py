@@ -17,54 +17,67 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-import sys, struct, re, string, traceback, os
+import string
+import struct
+import sys
+import traceback
 
 Verbose = False
 
+
 class BBerryExc(Exception): pass
 
+
 def err(s):
-    if Verbose: print >>sys.stderr, s
+    if Verbose: print >> sys.stderr, s
+
 
 def fmtexc(e, with_tb=False):
     tb = traceback.extract_tb(sys.exc_info()[2])
     s = '%s: %s' % (e.__class__.__name__, str(e))
     if with_tb:
-        s += '\n%s' % ('\n'.join([ '#   %s@%s:%s' % (filename, lineno, func)
-                                   for (filename,lineno,func,_) in tb ]),)
+        s += '\n%s' % ('\n'.join(['#   %s@%s:%s' % (filename, lineno, func)
+                                  for (filename, lineno, func, _) in tb]),)
     return s
+
 
 def isprintable(b):
     return ((b in string.printable)
             and (b == " " or b not in string.whitespace))
 
+
 def btos(bs, ascii=False):
     if bs == None or bs == "": return ""
+
     def _fmt(b):
         if ascii and isprintable(chr(b)): return chr(b)
         return '%0.2x' % (b,)
+
     return '.'.join(map(_fmt, bs))
+
 
 def fmtbs(bs, prefix="  : ", ascii=False):
     def _fmt():
         for i in range(0, len(bs), 16):
-            yield '\n%s0x%s' % (prefix, btos(bs[i:i+16], ascii))
+            yield '\n%s0x%s' % (prefix, btos(bs[i:i + 16], ascii))
+
     return "".join(_fmt())
+
 
 #
 # constants
 #
 
 MARKER = b"Inter@ctive Pager Backup/Restore File"
-LFVER  = b'\x0A\x02'
-NUL    = b'\x00'
+LFVER = b'\x0A\x02'
+NUL = b'\x00'
 
-NDBS_LEN   = 2
-DBN_LEN    = 2
-HDR_LEN    = len(MARKER) + len(LFVER) + NDBS_LEN + len(NUL)
-REC_OFFSET = 1+2+4
-DBHDR_LEN  = 2+4+REC_OFFSET
-FHDR_LEN   = 3
+NDBS_LEN = 2
+DBN_LEN = 2
+HDR_LEN = len(MARKER) + len(LFVER) + NDBS_LEN + len(NUL)
+REC_OFFSET = 1 + 2 + 4
+DBHDR_LEN = 2 + 4 + REC_OFFSET
+FHDR_LEN = 3
 
 AddressBookTypes = {
     1: 'email',
@@ -84,7 +97,8 @@ AddressBookTypes = {
     42: 'jobtitle',
     55: 'title',
     64: 'notes',
-    }
+}
+
 
 #
 # parse harness
@@ -96,19 +110,22 @@ def contact(rec):
         ty = AddressBookTypes[field['ty']]
         val = field['val']
         while True:
-            try: val = val.decode().strip("\x00")
+            try:
+                val = val.decode().strip("\x00")
             except UnicodeDecodeError as e:
-                print("val:", val, file=sys.stderr, end='')
-                val = val[:e.start]+val[e.end:]
+                print("val:", val, file=sys.stderr, end = '')
+                val = val[:e.start] + val[e.end:]
                 print(" newval:", val, "\n", file=sys.stderr)
                 continue
             break
 
-        if ty not in rv: rv[ty] = val
+        if ty not in rv:
+            rv[ty] = val
         else:
             rv[ty] += " %s" % (val,)
 
     return rv
+
 
 def parse_fields(f, rlen):
     rv = []
@@ -118,10 +135,11 @@ def parse_fields(f, rlen):
 
         (flen, ftyp) = struct.unpack("<H B", bs)
         bs = f.read(flen)
-        rlen -= FHDR_LEN+flen
-        field = {'len':flen, 'ty':ftyp, 'val':bs,}
+        rlen -= FHDR_LEN + flen
+        field = {'len': flen, 'ty': ftyp, 'val': bs, }
         rv.append(field)
     return rv
+
 
 def parse_dbrecs(f, ndbs, dbns):
     while True:
@@ -129,20 +147,21 @@ def parse_dbrecs(f, ndbs, dbns):
         if len(bs) == 0: break
 
         (dbid, rlen, dbv, rh, ruid,) = struct.unpack("<H L s H L", bs)
-        yield { 'name': dbns[dbid],
-                'id': dbid,
-                'rlen': rlen,
-                'ver': dbv,
-                'handle': rh,
-                'uid': ruid,
-                'fields': parse_fields(f, rlen-REC_OFFSET),
-                }
+        yield {'name': dbns[dbid],
+               'id': dbid,
+               'rlen': rlen,
+               'ver': dbv,
+               'handle': rh,
+               'uid': ruid,
+               'fields': parse_fields(f, rlen - REC_OFFSET),
+               }
+
 
 def parse_dbhdrs(f, ndbs):
     dbns = {}
     for i in range(ndbs):
         bs = f.read(DBN_LEN)
-        (dbnl, ) = struct.unpack("<H", bs)
+        (dbnl,) = struct.unpack("<H", bs)
 
         bs = f.read(dbnl)
         (dbn,) = struct.unpack("<%ss" % (dbnl,), bs)
@@ -150,6 +169,7 @@ def parse_dbhdrs(f, ndbs):
         dbns[i] = dbn[:-1].decode()
 
     return parse_dbrecs(f, ndbs, dbns)
+
 
 def parse(f, verbose=False):
     global Verbose
@@ -164,10 +184,11 @@ def parse(f, verbose=False):
     if lfver != LFVER: raise BBerryExc("bad lfver bs:%s" % (fmtbs(bs),))
     if nul != NUL: raise BBerryExc("bad nul bs:%s" % (fmtbs(bs),))
 
-    return { 'marker': marker,
-             'lfver': lfver,
-             'dbs': parse_dbhdrs(f, ndbs),
-             }
+    return {'marker': marker,
+            'lfver': lfver,
+            'dbs': parse_dbhdrs(f, ndbs),
+            }
+
 
 def vcard(rec):
     vcard = "BEGIN:VCARD\nVERSION:3.0\n"
@@ -188,7 +209,7 @@ def vcard(rec):
         rec.setdefault("state/province", '')
         rec.setdefault("zip/postal code", '')
         rec.setdefault("country", '')
-        vcard += 'ADR:;%(address1)s;%(address2)s;%(city)s;'\
+        vcard += 'ADR:;%(address1)s;%(address2)s;%(city)s;' \
                  '%(state/province)s;%(zip/postal code)s;%(country)s\n' % rec
 
     ## numbers
@@ -214,6 +235,7 @@ def vcard(rec):
     vcard += """END:VCARD\n"""
     return vcard
 
+
 #
 # main
 #
@@ -222,5 +244,5 @@ if __name__ == '__main__':
     ## print specifically contacts as vCards
     with open(sys.argv[1], "rb") as f:
         dbs = parse(f)
-        vcards = [ vcard(contact(db)) for db in dbs['dbs'] if db['name'] == 'Address Book' ]
+        vcards = [vcard(contact(db)) for db in dbs['dbs'] if db['name'] == 'Address Book']
         print(''.join(vcards))

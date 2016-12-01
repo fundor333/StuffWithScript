@@ -23,18 +23,23 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 # USA.
 
-import sys, socket, re, pprint, getopt, os, errno
+import getopt
+import os
+import pprint
+import re
+import socket
+import sys
 
 BUF_SZ = 8192
 
-RA_SERVER  = 'whois.ra.net'
-RA_SERVICE = '43' ## 'whois'
+RA_SERVER = 'whois.ra.net'
+RA_SERVICE = '43'  ## 'whois'
 DATA_DELIM = 'origin:'
-RT_DELIM   = 'route:'
-PFX_DELIM  = '/'
+RT_DELIM = 'route:'
+PFX_DELIM = '/'
+
 
 def die_with_usage(err="", code=0):
-
     print("""ERROR: %s
 Usage: %s [ options ] <names> where [options] are:
     -h|--help    : Help
@@ -45,9 +50,10 @@ Usage: %s [ options ] <names> where [options] are:
     -n|--natural : Force natural masks for old-style lookups
 
     Resolves the given names to their addresses and owning ASs.""" % (
-              err, os.path.basename(sys.argv[0]),),
+        err, os.path.basename(sys.argv[0]),),
           file=sys.stderr)
     sys.exit(code)
+
 
 def pfx2id(s):
     pfx, plen = s.split('/')
@@ -57,29 +63,32 @@ def pfx2id(s):
     p = 0
     for i in range(len(pfx)):
         p = (p << 8) | pfx[i]
-    p = p << (8 * (4-len(pfx)))
+    p = p << (8 * (4 - len(pfx)))
 
     return (p, plen)
 
+
 def str2id(str):
     quads = str.split('.')
-    ret   = (int(quads[0]) << 24) + (int(quads[1]) << 16) + \
-            (int(quads[2]) <<  8) + (int(quads[3]) <<  0)
+    ret = (int(quads[0]) << 24) + (int(quads[1]) << 16) + \
+          (int(quads[2]) << 8) + (int(quads[3]) << 0)
     return ret
 
+
 def id2str(id):
-    return "%d.%d.%d.%d" %\
-           (int( ((id & 0xff000000) >> 24) & 0xff),
-            int( ((id & 0x00ff0000) >> 16) & 0xff),
-            int( ((id & 0x0000ff00) >>  8) & 0xff),
-            int( (id  & 0x000000ff)        & 0xff) )
+    return "%d.%d.%d.%d" % \
+           (int(((id & 0xff000000) >> 24) & 0xff),
+            int(((id & 0x00ff0000) >> 16) & 0xff),
+            int(((id & 0x0000ff00) >> 8) & 0xff),
+            int((id & 0x000000ff) & 0xff))
+
 
 def lookup(net):
     rvs = []
     ra_addr = socket.gethostbyname(RA_SERVER)
     if VERBOSE > 2: print("ra_addr:", ra_addr)
     so = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
-    sp = int(RA_SERVICE) ## socket.getservbyname(RA_SERVICE, 'tcp')
+    sp = int(RA_SERVICE)  ## socket.getservbyname(RA_SERVICE, 'tcp')
 
     so.connect((ra_addr, sp))
     so.send(bytes(net + '\r\n', 'ascii'))
@@ -103,17 +112,20 @@ def lookup(net):
             m = fld_re.match(line)
             if m:
                 if m.group(1):
-                    key = m.group(1)[:-1]   # remove trailing ':'
+                    key = m.group(1)[:-1]  # remove trailing ':'
                     last_key = key
                 else:
                     key = last_key
 
                 val = m.group(2).strip()
-                try: rv[key].append(val)
-                except: rv[key] = [val]
+                try:
+                    rv[key].append(val)
+                except:
+                    rv[key] = [val]
         rvs.append(rv)
 
     return rvs
+
 
 if __name__ == '__main__':
 
@@ -122,39 +134,50 @@ if __name__ == '__main__':
     ip_addrs = None
 
     ## option parsing
-    pairs = [ "h/help", "q/quiet", "v/verbose", "V/VERBOSE", "n/natural",
-              "w:/whois=", "i:/input=", ]
-    shortopts = "".join([ pair.split("/")[0] for pair in pairs ])
-    longopts = [ pair.split("/")[1] for pair in pairs ]
-    try: opts, args = getopt.getopt(sys.argv[1:], shortopts, longopts)
-    except getopt.GetoptError as err: die_with_usage(err, 2)
+    pairs = ["h/help", "q/quiet", "v/verbose", "V/VERBOSE", "n/natural",
+             "w:/whois=", "i:/input=", ]
+    shortopts = "".join([pair.split("/")[0] for pair in pairs])
+    longopts = [pair.split("/")[1] for pair in pairs]
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], shortopts, longopts)
+    except getopt.GetoptError as err:
+        die_with_usage(err, 2)
 
     try:
         for (o, a) in opts:
-            if o in ('-h', '--help'): usage()
-            elif o in ('-q', '--quiet'): VERBOSE = 0
-            elif o in ('-v', '--verbose'): VERBOSE = 2
-            elif o in ('-V', '--VERBOSE'): VERBOSE = 3
-            elif o in ('-n', '--natural'): FORCE_NATURAL_MASK = 1
-            elif o in ('-w', '--whois'): RA_SERVER = a
-            elif o in ('-i', '--input'): ip_addrs = open(a)
-            else: raise Exception("unhandled option")
+            if o in ('-h', '--help'):
+                usage()
+            elif o in ('-q', '--quiet'):
+                VERBOSE = 0
+            elif o in ('-v', '--verbose'):
+                VERBOSE = 2
+            elif o in ('-V', '--VERBOSE'):
+                VERBOSE = 3
+            elif o in ('-n', '--natural'):
+                FORCE_NATURAL_MASK = 1
+            elif o in ('-w', '--whois'):
+                RA_SERVER = a
+            elif o in ('-i', '--input'):
+                ip_addrs = open(a)
+            else:
+                raise Exception("unhandled option")
 
-    except Exception as err: die_with_usage(err, 3)
+    except Exception as err:
+        die_with_usage(err, 3)
 
     if not ip_addrs:
         ip_addrs = args
         if not ip_addrs: die_with_usage("no addresses!", 4)
 
-    for ip_str in [ s.strip() for s in ip_addrs ]:
+    for ip_str in [s.strip() for s in ip_addrs]:
         try:
-            if  '/' not in ip_str:
+            if '/' not in ip_str:
                 ip_addr = socket.gethostbyname(ip_str)
                 addr = str2id(ip_addr)
             else:
                 ip_addr = ip_str
                 addr, plen = pfx2id(ip_str)
-                addr = addr & pow(2, 32) - pow(2, 32-plen)
+                addr = addr & pow(2, 32) - pow(2, 32 - plen)
 
             if FORCE_NATURAL_MASK:
                 if ((addr & 0xff000000) >> 24) >= 192:
@@ -163,7 +186,8 @@ if __name__ == '__main__':
                     net = id2str(addr & 0xffff0000)
                 else:
                     net = id2str(addr & 0xff000000)
-            else: net = id2str(addr)
+            else:
+                net = id2str(addr)
 
             if VERBOSE > 1: print('query string:', net)
 
@@ -188,7 +212,7 @@ if __name__ == '__main__':
         # route
 
         best_plen = 0
-        best      = []
+        best = []
         for rv in rvs:
             if None not in rv:
                 for rt in rv['route']:
@@ -196,7 +220,7 @@ if __name__ == '__main__':
                     plen = int(plen)
                     if plen > best_plen:
                         best_plen = plen
-                        best = [ rv ]
+                        best = [rv]
                     elif plen == best_plen:
                         if rv not in best: best.append(rv)
         if len(best) == 0:

@@ -4,6 +4,7 @@ class FacepyError(Exception):
 
 class FacebookError(FacepyError):
     """Exception for Facebook errors."""
+
     def __init__(self, message=None, code=None, error_data=None, error_subcode=None,
                  is_transient=None, error_user_title=None, error_user_msg=None):
         self.message = message

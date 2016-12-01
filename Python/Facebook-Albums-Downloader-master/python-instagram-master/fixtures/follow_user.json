@@ -1,8 +1,8 @@
 {
-    "meta": {
-        "code": 200
-    }, 
-    "data": {
-	"outgoing_status": "follows"
-    }
+  "meta": {
+    "code": 200
+  },
+  "data": {
+    "outgoing_status": "follows"
+  }
 }

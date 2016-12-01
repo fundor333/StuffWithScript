@@ -1,5 +1,5 @@
-import os
 import glob
+import os
 
 os.chdir("/Users/mikeherman/repos/bugs/se-platform/se/core/permissions")
 for file in glob.glob("*.json"):

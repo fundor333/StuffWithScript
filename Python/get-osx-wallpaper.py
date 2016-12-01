@@ -49,7 +49,6 @@ alias rm-wallpaper='rm $(get-osx-wallpaper.py) && killall Dock'
 ```
 """
 
-
 import sqlite3
 from os.path import expanduser
 

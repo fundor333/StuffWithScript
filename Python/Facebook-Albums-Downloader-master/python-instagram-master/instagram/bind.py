@@ -1,12 +1,12 @@
-import urllib
-from .oauth2 import OAuth2Request
-import re
-from .json_import import simplejson
 import hmac
+import re
 from hashlib import sha256
+
 import six
 from six.moves.urllib.parse import quote
-import sys
+
+from .json_import import simplejson
+from .oauth2 import OAuth2Request
 
 re_path_template = re.compile('{\w+}')
 
@@ -29,7 +29,6 @@ class InstagramClientError(Exception):
 
 
 class InstagramAPIError(Exception):
-
     def __init__(self, status_code, error_type, error_message, *args, **kwargs):
         self.status_code = status_code
         self.error_type = error_type
@@ -40,7 +39,6 @@ class InstagramAPIError(Exception):
 
 
 def bind_method(**config):
-
     class InstagramAPIMethod(object):
 
         path = config['path']
@@ -87,7 +85,7 @@ def bind_method(**config):
                     raise InstagramClientError("Parameter %s already supplied" % key)
                 self.parameters[key] = encode_string(value)
             if 'user_id' in self.accepts_parameters and not 'user_id' in self.parameters \
-               and not self.requires_target_user:
+                    and not self.requires_target_user:
                 self.parameters['user_id'] = 'self'
 
         def _build_path(self):
@@ -113,7 +111,7 @@ def bind_method(**config):
             if self.pagination_format == 'dict':
                 return pagination
             raise Exception('Invalid value for pagination_format: %s' % self.pagination_format)
-          
+
         def _do_api_request(self, url, method="GET", body=None, headers=None):
             headers = headers or {}
             if self.signature and self.api.client_ips != None and self.api.client_secret != None:
@@ -124,7 +122,8 @@ def bind_method(**config):
 
             response, content = OAuth2Request(self.api).make_request(url, method=method, body=body, headers=headers)
             if response['status'] == '503' or response['status'] == '429':
-                raise InstagramAPIError(response['status'], "Rate limited", "Your client is making too many request per second")
+                raise InstagramAPIError(response['status'], "Rate limited",
+                                        "Your client is making too many request per second")
             try:
                 content_obj = simplejson.loads(content)
             except ValueError:
@@ -132,13 +131,15 @@ def bind_method(**config):
             # Handle OAuthRateLimitExceeded from Instagram's Nginx which uses different format to documented api responses
             if 'meta' not in content_obj:
                 if content_obj.get('code') == 420 or content_obj.get('code') == 429:
-                    error_message = content_obj.get('error_message') or "Your client is making too many request per second"
+                    error_message = content_obj.get(
+                        'error_message') or "Your client is making too many request per second"
                     raise InstagramAPIError(content_obj.get('code'), "Rate limited", error_message)
-                raise InstagramAPIError(content_obj.get('code'), content_obj.get('error_type'), content_obj.get('error_message'))
+                raise InstagramAPIError(content_obj.get('code'), content_obj.get('error_type'),
+                                        content_obj.get('error_message'))
             api_responses = []
             status_code = content_obj['meta']['code']
-            self.api.x_ratelimit_remaining = response.get("x-ratelimit-remaining",None)
-            self.api.x_ratelimit = response.get("x-ratelimit-limit",None)
+            self.api.x_ratelimit_remaining = response.get("x-ratelimit-remaining", None)
+            self.api.x_ratelimit = response.get("x-ratelimit-limit", None)
             if status_code == 200:
                 if not self.objectify_response:
                     return content_obj, None
@@ -160,7 +161,8 @@ def bind_method(**config):
                     pass
                 return api_responses, self._build_pagination_info(content_obj)
             else:
-                raise InstagramAPIError(status_code, content_obj['meta']['error_type'], content_obj['meta']['error_message'])
+                raise InstagramAPIError(status_code, content_obj['meta']['error_type'],
+                                        content_obj['meta']['error_message'])
 
         def _paginator_with_url(self, url, method="GET", body=None, headers=None):
             headers = headers or {}

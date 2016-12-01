@@ -11,7 +11,6 @@
  * :license: BSD, see LICENSE for details.
  *
  */
-
 /* RTD colors
  * light blue: #e8ecef
  * medium blue: #8ca1af
@@ -23,13 +22,12 @@
  * green highlight: #8ecc4c
  * light blue (project bar): #e8ecef
  */
-
 @import url("basic.css");
 
 /* PAGE LAYOUT -------------------------------------------------------------- */
 
 body {
-    font: 100%/1.5 "ff-meta-web-pro-1","ff-meta-web-pro-2",Arial,"Helvetica Neue",sans-serif; 
+    font: 100%/1.5 "ff-meta-web-pro-1", "ff-meta-web-pro-2", Arial, "Helvetica Neue", sans-serif;
     text-align: center;
     color: black;
     background-color: #465158;
@@ -66,7 +64,6 @@ div.documentwrapper {
     width: 100%;
     background-color: #e8ecef;
 }
-
 
 /* HEADINGS --------------------------------------------------------------- */
 
@@ -114,7 +111,6 @@ h5 a.anchor:hover, h6 a.anchor:hover {
     background-color: #eee;
 }
 
-
 /* LINKS ------------------------------------------------------------------ */
 
 /* Normal links get a pseudo-underline */
@@ -150,6 +146,7 @@ div.footer a {
     text-decoration: none;
     border: none;
 }
+
 div.footer a:hover {
     color: #a6b8bb;
     text-decoration: underline;
@@ -165,11 +162,11 @@ div.body a.headerlink {
     text-decoration: none;
     border: none;
 }
+
 div.body a.headerlink:hover {
     color: #c60f0f;
     border: none;
 }
-
 
 /* NAVIGATION BAR --------------------------------------------------------- */
 
@@ -204,6 +201,7 @@ div.related ul li a {
     border: none;
     border-radius: 3px;
 }
+
 /* previous / next / modules / index links look more like buttons */
 div.related ul li.right a {
     margin: 0.375em 0;
@@ -213,6 +211,7 @@ div.related ul li.right a {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
+
 /* All navbar links light up as buttons when hovered */
 div.related ul li a:hover {
     background-color: #8ca1af;
@@ -222,13 +221,13 @@ div.related ul li a:hover {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
 }
+
 /* Take extra precautions for tt within links */
 a tt,
 div.related ul li a tt {
     background: inherit !important;
     color: inherit !important;
 }
-
 
 /* SIDEBAR ---------------------------------------------------------------- */
 
@@ -297,6 +296,7 @@ div.sphinxsidebar p.topless {
     white-space: nowrap;
     overflow: hidden;
 }
+
 /* ...which become visible when hovered */
 div.sphinxsidebar ul li:hover,
 div.sphinxsidebar p.topless:hover {
@@ -313,6 +313,7 @@ div.sphinxsidebar p.topless:hover {
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
 }
+
 #searchbox h3 {
     margin-top: 0;
 }
@@ -337,6 +338,7 @@ input[type="text"] {
     -webkit-border-top-left-radius: 3px;
     -webkit-border-bottom-left-radius: 3px;
 }
+
 /* Search button */
 input[type="submit"] {
     margin: 0 0 0 -1px; /* -1px prevents a double-border with textbox */
@@ -352,6 +354,7 @@ input[type="submit"] {
     -webkit-border-top-right-radius: 3px;
     -webkit-border-bottom-right-radius: 3px;
 }
+
 input[type="submit"]:hover {
     color: #ffffff;
     background-color: #8ecc4c;
@@ -375,6 +378,7 @@ div.sphinxsidebar p a {
     border: 1px solid transparent; /* To prevent things jumping around on hover */
     padding: 0 5px 0 5px;
 }
+
 div.sphinxsidebar li a:hover,
 div.sphinxsidebar p a:hover {
     color: #111;
@@ -386,14 +390,11 @@ div.sphinxsidebar p a:hover {
 div.sphinxsidebar h3 a {
 }
 
-
-
-
 /* OTHER STUFF ------------------------------------------------------------ */
 
 cite, code, tt {
     font-family: 'Consolas', 'Deja Vu Sans Mono',
-                 'Bitstream Vera Sans Mono', monospace;
+    'Bitstream Vera Sans Mono', monospace;
     font-size: 0.95em;
     letter-spacing: 0.01em;
 }
@@ -414,7 +415,7 @@ hr {
 
 pre, #_fontwidthtest {
     font-family: 'Consolas', 'Deja Vu Sans Mono',
-                 'Bitstream Vera Sans Mono', monospace;
+    'Bitstream Vera Sans Mono', monospace;
     margin: 1em 2em;
     font-size: 0.95em;
     letter-spacing: 0.015em;
@@ -457,7 +458,6 @@ table td, table th {
     padding: 0.2em 0.5em 0.2em 0.5em;
 }
 
-
 /* ADMONITIONS AND WARNINGS ------------------------------------------------- */
 
 /* Shared by admonitions and warnings */
@@ -471,13 +471,16 @@ div.admonition, div.warning {
     -webkit-border-radius: 6px;
     */
 }
+
 div.admonition p, div.warning p {
     margin: 0.5em 1em 0.5em 1em;
     padding: 0;
 }
+
 div.admonition pre, div.warning pre {
     margin: 0.4em 1em 0.4em 1em;
 }
+
 div.admonition p.admonition-title,
 div.warning p.admonition-title {
     margin: 0;
@@ -487,35 +490,34 @@ div.warning p.admonition-title {
     font-size: 1.1em;
     text-shadow: 0 1px rgba(0, 0, 0, 0.5);
 }
+
 div.admonition ul, div.admonition ol,
 div.warning ul, div.warning ol {
     margin: 0.1em 0.5em 0.5em 3em;
     padding: 0;
 }
 
-
 /* Admonitions only */
 div.admonition {
     border: 1px solid #609060;
     background-color: #e9ffe9;
 }
+
 div.admonition p.admonition-title {
     background-color: #70A070;
     border-bottom: 1px solid #609060;
 }
-
 
 /* Warnings only */
 div.warning {
     border: 1px solid #900000;
     background-color: #ffe9e9;
 }
+
 div.warning p.admonition-title {
     background-color: #b04040;
     border-bottom: 1px solid #900000;
 }
-
-
 
 div.versioninfo {
     margin: 1em 0 0 0;
@@ -528,7 +530,7 @@ div.versioninfo {
 
 .viewcode-back {
     font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Geneva',
-                 'Verdana', sans-serif;
+    'Verdana', sans-serif;
 }
 
 div.viewcode-block:target {
@@ -545,10 +547,12 @@ dl {
 dt:target {
     background: #ffe080;
 }
+
 /* Don't highlight whole divs */
 div.highlight {
     background: transparent;
 }
+
 /* But do highlight spans (so search results can be highlighted) */
 span.highlight {
     background: #ffe080;
@@ -571,11 +575,10 @@ p {
     margin: 1em 2em;
 }
 
-
 /* MOBILE LAYOUT -------------------------------------------------------------- */
 
 @media screen and (max-width: 600px) {
-    
+
     h1, h2, h3, h4, h5 {
         position: relative;
     }
@@ -735,7 +738,7 @@ p {
 
     table.indextable {
         display: block;
-        width: auto; 
+        width: auto;
     }
 
     .indextable tr {

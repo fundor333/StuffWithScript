@@ -11,8 +11,9 @@ of the output.
 """
 
 import argparse
-import multitail
 import sys
+
+import multitail
 
 
 # http://stackoverflow.com/questions/107705
@@ -26,6 +27,7 @@ class Unbuffered(object):
 
     def __getattr__(self, attr):
         return getattr(self.stream, attr)
+
 
 sys.stdout = Unbuffered(sys.stdout)
 

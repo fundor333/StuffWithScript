@@ -31,10 +31,10 @@ Usage documentation
 ^^^^^^^^^^^^^^^^^^^
 
 .. toctree::
-    :maxdepth: 1
-    :glob:
-    
-    usage/*
+:maxdepth: 1
+        :glob:
+
+            usage/*
 
 Development
 -----------

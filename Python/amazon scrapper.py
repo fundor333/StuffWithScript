@@ -1,12 +1,14 @@
-from lxml import html  
-import csv,os,json
-import requests
-from exceptions import ValueError
+import json
 from time import sleep
 
+import requests
+from lxml import html
+
+
 def AmzonParser(url):
-    headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'}
-    page = requests.get(url,headers=headers)
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36'}
+    page = requests.get(url, headers=headers)
     while True:
         sleep(3)
         try:
@@ -32,41 +34,42 @@ def AmzonParser(url):
             if not ORIGINAL_PRICE:
                 ORIGINAL_PRICE = SALE_PRICE
 
-            if page.status_code!=200:
+            if page.status_code != 200:
                 raise ValueError('captha')
             data = {
-                    'NAME':NAME,
-                    'SALE_PRICE':SALE_PRICE,
-                    'CATEGORY':CATEGORY,
-                    'ORIGINAL_PRICE':ORIGINAL_PRICE,
-                    'AVAILABILITY':AVAILABILITY,
-                    'URL':url,
-                    }
+                'NAME': NAME,
+                'SALE_PRICE': SALE_PRICE,
+                'CATEGORY': CATEGORY,
+                'ORIGINAL_PRICE': ORIGINAL_PRICE,
+                'AVAILABILITY': AVAILABILITY,
+                'URL': url,
+            }
 
             return data
         except Exception as e:
-            print e
+            print(e)
+
 
 def ReadAsin():
     # AsinList = csv.DictReader(open(os.path.join(os.path.dirname(__file__),"Asinfeed.csv")))
     AsinList = ['B0046UR4F4',
-    'B00JGTVU5A',
-    'B00GJYCIVK',
-    'B00EPGK7CQ',
-    'B00EPGKA4G',
-    'B00YW5DLB4',
-    'B00KGD0628',
-    'B00O9A48N2',
-    'B00O9A4MEW',
-    'B00UZKG8QU',]
+                'B00JGTVU5A',
+                'B00GJYCIVK',
+                'B00EPGK7CQ',
+                'B00EPGKA4G',
+                'B00YW5DLB4',
+                'B00KGD0628',
+                'B00O9A48N2',
+                'B00O9A4MEW',
+                'B00UZKG8QU', ]
     extracted_data = []
     for i in AsinList:
-        url = "http://www.amazon.com/dp/"+i
-        print "Processing: "+url
+        url = "http://www.amazon.com/dp/" + i
+        print("Processing: " + url)
         extracted_data.append(AmzonParser(url))
         sleep(5)
-    f=open('data.json','w')
-    json.dump(extracted_data,f,indent=4)
+    f = open('data.json', 'w')
+    json.dump(extracted_data, f, indent=4)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,3 @@
-import sys
-import os
-
 try:
     from setuptools import setup
 except ImportError:
@@ -23,7 +20,7 @@ setup(
     author_email='tristan.waddington@gmail.com',
     url='https://github.com/twaddington/python-tumblr-scraper',
     install_requires=requires,
-    #packages=['rdio_export'],
+    # packages=['rdio_export'],
     scripts=['bin/tumblr-scraper'],
     zip_safe=False,
     classifiers=[

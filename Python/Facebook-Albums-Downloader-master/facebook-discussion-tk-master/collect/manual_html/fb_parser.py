@@ -1,7 +1,8 @@
 from __future__ import print_function
-from datetime import datetime
-from HTMLParser import HTMLParser
+
 import re
+from HTMLParser import HTMLParser
+from datetime import datetime
 
 
 class FbHTMLParserFindMeta(HTMLParser):
@@ -85,12 +86,12 @@ class FbHTMLParserFindPost(HTMLParser):
 
         if tag == 'div':
             # check if we have a outer post div
-            if self.post_outer_tag_level is None\
+            if self.post_outer_tag_level is None \
                     and 'id' in attrib_dict and attrib_dict['id'].startswith(self._post_outer_id_startswith):
                 self.post_outer_tag_level = self.cur_tag_level[tag]
 
             # check if we have an inner post div (contains post message text)
-            if self.post_outer_tag_level is not None and self.post_inner_tag_level is None\
+            if self.post_outer_tag_level is not None and self.post_inner_tag_level is None \
                     and '_5pbx' in tag_classes and 'userContent' in tag_classes:
                 self.post_inner_tag_level = self.cur_tag_level[tag]
 
@@ -120,20 +121,20 @@ class FbHTMLParserFindPost(HTMLParser):
                 self.comment_list_content_message_tag_level = self.cur_tag_level[tag]
         elif tag == 'abbr':
             # check if we have a post date field
-            if self.post_outer_tag_level is not None and self.comment_list_tag_level is None\
+            if self.post_outer_tag_level is not None and self.comment_list_tag_level is None \
                     and '_5ptz' in tag_classes and 'data-utime' in attrib_dict:
                 dt_obj = datetime.fromtimestamp(int(attrib_dict['data-utime']))
                 self.cur_post_date = dt_obj.strftime('%Y-%m-%d %H:%M:%S')
 
             # check if we have a comment date field
-            if self.comment_list_tag_level is not None\
+            if self.comment_list_tag_level is not None \
                     and 'livetimestamp' in tag_classes and 'data-utime' in attrib_dict:
                 dt_obj = datetime.fromtimestamp(int(attrib_dict['data-utime']))
                 assert self.cur_comment
                 self.cur_comment['date'] = dt_obj.strftime('%Y-%m-%d %H:%M:%S')
         elif tag == 'h5':
             # check if we have an author field
-            if self.post_outer_tag_level is not None and self.post_author_tag_level is None\
+            if self.post_outer_tag_level is not None and self.post_author_tag_level is None \
                     and '_5pbw' in tag_classes:
                 self.post_author_tag_level = self.cur_tag_level[tag]
 
@@ -173,7 +174,7 @@ class FbHTMLParserFindPost(HTMLParser):
                 self.cur_comment['message'] = ' '.join(self.cur_comment['message'])
                 self.cur_post_comments.append(self.cur_comment)
                 self.prev_comment = self.cur_comment
-                self.cur_comment = None     # reset
+                self.cur_comment = None  # reset
 
             # check outer post tag
             if self.post_outer_tag_level == self.cur_tag_level[tag]:

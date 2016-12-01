@@ -17,7 +17,6 @@
 ######################################################################
 
 import commands
-import json
 import os
 import sys
 import urllib
@@ -28,7 +27,7 @@ import requests
 
 ########################### CUSTOMIZE THIS ###########################
 page_id = "567045406742962"
-access_token = "app_id|app_secret" # see https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens
+access_token = "app_id|app_secret"  # see https://developers.facebook.com/docs/facebook-login/access-tokens#apptokens
 dest = os.path.expanduser("~/img/sns/apink-official-facebook")
 website_title = "apink-official-facebook"
 ######################################################################
@@ -46,6 +45,7 @@ if os.path.exists(last_update_record):
 else:
     last_update_time = dateutil.parser.parse("1970-01-01T00:00+00:00")
 
+
 # this function makes an API call with only an access_token (which
 # could be just app-id|app-secret)
 def fb_public_call(endpoint, params, access_token):
@@ -54,12 +54,15 @@ def fb_public_call(endpoint, params, access_token):
                             params=params)
     return response.json()
 
+
 # this function downloads a photo
 # return codes are defined below
 SUCCESS = 0
 FAILED_DOWNLOAD = 1
 UNRECOGNIZED_MIME = 2
-OLD_PHOTO = 255 # photo older than last update time
+OLD_PHOTO = 255  # photo older than last update time
+
+
 def handle_photo(photo, album_id):
     # print information
     photo_id = photo["id"]
@@ -103,6 +106,7 @@ def handle_photo(photo, album_id):
         sys.stderr.write(err)
         return FAILED_DOWNLOAD
 
+
 # this function handles an album, i.e., download newly added photos
 # since the last update
 def handle_album(album):
@@ -130,7 +134,8 @@ def handle_album(album):
         else:
             break
     print
-    
+
+
 params = {}
 # retrieve albums
 albums_response = fb_public_call(page_id + "/albums", params,

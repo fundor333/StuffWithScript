@@ -8,8 +8,8 @@ Merges two mutt contact files.
 """
 
 import argparse
-from collections import defaultdict
 import re
+from collections import defaultdict
 
 
 def merge_files(contacts_filenames):
@@ -27,6 +27,7 @@ def merge_files(contacts_filenames):
     for group in sorted(contents):
         print("# {}".format(group))
         print("\n".join(sorted(set(contents[group]))) + "\n")
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

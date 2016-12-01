@@ -7,10 +7,11 @@ __date__ = '2014.11.02'
 Produces a Markdown table concisely summarizing a list of GitHub repositories.
 """
 
-from github import Github
 import argparse
 import os
 import sys
+
+from github import Github
 
 parser = argparse.ArgumentParser()
 parser.add_argument('repos', nargs="+", type=str)
@@ -21,6 +22,7 @@ github = Github(os.getenv("GITHUB_TOKEN"))
 def sanitize_for_md(s):
     s = s.replace("*", "\*")
     return s
+
 
 # print("Generated on {}.\n".format(time.strftime("%Y-%m-%d")))
 print("Name | Stargazers | Description")

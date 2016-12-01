@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-import sys
-import json
-import time
+
 import csv
-from pprint import pprint
+import json
+import sys
+import time
 
 import wordstats
 
@@ -147,7 +147,7 @@ def add_up_noun_counts(s, a):
 def print_sum_counts(sorted_counts, limit=None):
     for i, items in enumerate(sorted_counts):
         noun, count = items
-        print('>>> %s (%d)' %(noun, count))
+        print('>>> %s (%d)' % (noun, count))
 
         if limit and i > limit:
             break

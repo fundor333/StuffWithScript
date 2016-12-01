@@ -1,6 +1,8 @@
-import hmac
 import hashlib
+import hmac
+
 from .json_import import simplejson
+
 
 class SubscriptionType:
     TAG = 'tag'
@@ -18,7 +20,6 @@ class SubscriptionVerifyError(SubscriptionError):
 
 
 class SubscriptionsReactor(object):
-
     def __init__(self):
         self.callbacks = {}
 

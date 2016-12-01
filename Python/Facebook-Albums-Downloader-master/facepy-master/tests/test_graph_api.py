@@ -1,15 +1,13 @@
 # -*- coding:utf-8 -*-
 
 """Tests for the ``graph_api`` module."""
-import json
 import decimal
-
-from nose.tools import *
-from mock import patch, MagicMock
-from requests.exceptions import ConnectionError
+import json
 
 from facepy import GraphAPI
-
+from mock import patch, MagicMock
+from nose.tools import *
+from requests.exceptions import ConnectionError
 
 patch = patch('requests.session')
 
@@ -121,7 +119,7 @@ def test_get_with_new_version():
         'last_name': 'Hauk',
         'link': 'http://facebook.com/herc',
         'username': 'herc',
-        })
+    })
     mock_request.return_value.status_code = 200
 
     graph.get('me')
@@ -207,10 +205,10 @@ def test_paged_get():
     responses = [
         {
             'data': [
-                {
-                    'message': 'He\'s a complicated man. And the only one that understands him is his woman'
-                }
-            ] * 2,
+                        {
+                            'message': 'He\'s a complicated man. And the only one that understands him is his woman'
+                        }
+                    ] * 2,
             'paging': {
                 'next': 'https://graph.facebook.com/herc/posts?limit=%(limit)s&offset=%(limit)s&access_token=<access token>' % {
                     'limit': limit
@@ -575,18 +573,20 @@ def test_batch_over_50_requests():
     def side_effect_batch_size(*args, **kwargs):
         batch_size = len(json.loads(kwargs['data']['batch']))
         if batch_size > 50:
-            return MagicMock(content='{"error":{"message":"Too many requests in batch message. Maximum batch size is 50","type":"GraphBatchException"}}',
-                             status_code=200)
+            return MagicMock(
+                content='{"error":{"message":"Too many requests in batch message. Maximum batch size is 50","type":"GraphBatchException"}}',
+                status_code=200)
         else:
             return MagicMock(content=json.dumps([
-                {
-                    'code': 200,
-                    'headers': [
-                        {'name': 'Content-Type', 'value': 'text/javascript; charset=UTF-8'}
-                    ],
-                    'body': '{"foo": "bar"}'
-                } for i in range(batch_size)
-            ]), status_code=200)
+                                                    {
+                                                        'code': 200,
+                                                        'headers': [
+                                                            {'name': 'Content-Type',
+                                                             'value': 'text/javascript; charset=UTF-8'}
+                                                        ],
+                                                        'body': '{"foo": "bar"}'
+                                                    } for i in range(batch_size)
+                                                    ]), status_code=200)
 
     mock_request.side_effect = side_effect_batch_size
 

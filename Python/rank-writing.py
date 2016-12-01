@@ -34,9 +34,9 @@ Total: 0
 
 import argparse
 import re
-from subprocess import Popen, PIPE
 import shutil
 import sys
+from subprocess import Popen, PIPE
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--aspell', action='store_true')
@@ -97,6 +97,7 @@ def getNumSuggestions(program, f_name):
 def getSuggestions(f_name):
     suggestions = list(map(lambda x: getNumSuggestions(x, f_name), programs))
     return (sum(suggestions), suggestions, f_name)
+
 
 for tup in sorted(map(getSuggestions, args.files), reverse=True):
     print("\n=== {} ===".format(tup[2]))

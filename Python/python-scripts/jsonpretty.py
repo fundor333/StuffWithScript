@@ -19,7 +19,10 @@
 # Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 # USA.
 
-import sys, json, getopt
+import getopt
+import json
+import sys
+
 
 def die_with_usage(err="Usage: ", code=0):
     print("""ERROR: %s
@@ -32,28 +35,38 @@ Pretty print JSON <files...> specified, or stdin if none.
     """ % (err, sys.argv[0]))
     sys.exit(code)
 
+
 if __name__ == '__main__':
 
     ## option parsing
-    pairs = [ "h/help", "l/line",
-              "i:/indent=", ]
-    shortopts = "".join([ pair.split("/")[0] for pair in pairs ])
-    longopts = [ pair.split("/")[1] for pair in pairs ]
-    try: opts, args = getopt.getopt(sys.argv[1:], shortopts, longopts)
-    except getopt.GetoptError as err: die_with_usage(err, 2)
+    pairs = ["h/help", "l/line",
+             "i:/indent=", ]
+    shortopts = "".join([pair.split("/")[0] for pair in pairs])
+    longopts = [pair.split("/")[1] for pair in pairs]
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], shortopts, longopts)
+    except getopt.GetoptError as err:
+        die_with_usage(err, 2)
 
     indent = 2
     per_line = False
     try:
         for o, a in opts:
-            if o in ("-h", "--help"): die_with_usage()
-            elif o in ("-i", "--indent"): indent = int(a)
-            elif o in ("-l", "--line"): per_line = True
-            else: raise Exception("unhandled option")
-    except Exception as err: die_with_usage(err, 3)
+            if o in ("-h", "--help"):
+                die_with_usage()
+            elif o in ("-i", "--indent"):
+                indent = int(a)
+            elif o in ("-l", "--line"):
+                per_line = True
+            else:
+                raise Exception("unhandled option")
+    except Exception as err:
+        die_with_usage(err, 3)
 
-    if len(args) == 0: args = [ sys.stdin ]
-    else: args = map(lambda f: open(f), args)
+    if len(args) == 0:
+        args = [sys.stdin]
+    else:
+        args = map(lambda f: open(f), args)
 
     ## pretty print
     for a in args:

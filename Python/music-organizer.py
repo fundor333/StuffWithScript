@@ -20,6 +20,7 @@ import os
 import re
 import shutil
 import sys
+
 from mutagen.easyid3 import EasyID3
 
 parser = argparse.ArgumentParser(
@@ -201,6 +202,7 @@ def collection():
                 artist(f)
         elif os.path.isfile(f):
             song(f)
+
 
 if args.artist:
     artist('.')

@@ -42,7 +42,6 @@ import tempfile
 
 from PyPDF2 import PdfFileMerger, PdfFileReader
 
-
 # Make sure executables are in PATH.
 executables_used = ['ps2pdf']
 
@@ -50,12 +49,15 @@ executables_used = ['ps2pdf']
 def exe_exists(program):
     def is_exe(fpath):
         return os.path.isfile(fpath) and os.access(fpath, os.X_OK)
+
     for path in os.environ["PATH"].split(os.pathsep):
         path = path.strip('"')
         exe_file = os.path.join(path, program)
         if is_exe(exe_file):
             return
     raise Exception("Unable to find program on PATH: '{}'.".format(program))
+
+
 [exe_exists(e) for e in executables_used]
 
 
@@ -88,6 +90,7 @@ def merge_pdfs(f_names):
         merger.write(f)
     [fp.close() for fp in fps]
     print("Merged output is in '{}'.".format(out_file))
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

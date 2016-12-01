@@ -24,7 +24,7 @@ You may parse `signed requests <http://developers.facebook.com/docs/authenticati
     signed_request.generate(facebook_application_secret_key)
 
 .. autoclass:: facepy.SignedRequest
-    :members: parse, user, data, page, oauth_token, generate, User, Page, OAuthToken
+:members: parse, user, data, page, oauth_token, generate, User, Page, OAuthToken
 
 .. admonition:: See also
 

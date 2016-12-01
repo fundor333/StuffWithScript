@@ -4,20 +4,21 @@
 Usage: 
 python app.py <username>
 """
-import concurrent.futures
 import errno
 import json
 import os
 import re
-import requests
-import tqdm
 import sys
 import warnings
 
+import concurrent.futures
+import requests
+import tqdm
+
 warnings.filterwarnings("ignore")
 
-class InstagramScraper:
 
+class InstagramScraper:
     def __init__(self, username):
         self.username = username
         self.numPosts = 0
@@ -29,7 +30,7 @@ class InstagramScraper:
         url = 'http://instagram.com/' + self.username + '/media'
 
         if max_id is not None:
-            url += '?&max_id=' + max_id 
+            url += '?&max_id=' + max_id
 
         resp = requests.get(url)
         media = json.loads(resp.text)
@@ -61,7 +62,7 @@ class InstagramScraper:
 
         item['url'] = item[item['type'] + 's']['standard_resolution']['url'].split('?')[0]
         # remove dimensions to get largest image
-        item['url'] = re.sub(r'/s\d{3,}x\d{3,}/', '/', item['url']) 
+        item['url'] = re.sub(r'/s\d{3,}x\d{3,}/', '/', item['url'])
 
         base_name = item['url'].split('/')[-1]
         file_path = os.path.join(save_dir, base_name)
@@ -73,13 +74,15 @@ class InstagramScraper:
         file_time = int(item['created_time'])
         os.utime(file_path, (file_time, file_time))
 
+
 if __name__ == '__main__':
     username = sys.argv[1]
 
     scraper = InstagramScraper(username)
     scraper.crawl()
 
-    for future in tqdm.tqdm(concurrent.futures.as_completed(scraper.future_to_item), total=len(scraper.future_to_item), desc='Downloading'):
+    for future in tqdm.tqdm(concurrent.futures.as_completed(scraper.future_to_item), total=len(scraper.future_to_item),
+                            desc='Downloading'):
         item = scraper.future_to_item[future]
 
         if future.exception() is not None:

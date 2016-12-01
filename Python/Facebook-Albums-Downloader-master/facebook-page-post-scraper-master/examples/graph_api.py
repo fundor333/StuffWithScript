@@ -2,10 +2,11 @@ try:
     import simplejson as json
 except ImportError:
     import json  # flake8: noqa
-import requests
 import hashlib
 import hmac
 import logging
+
+import requests
 
 try:
     import urllib.parse as urlparse
@@ -21,7 +22,8 @@ from facepy.exceptions import *
 
 
 class GraphAPI(object):
-    def __init__(self, oauth_token=False, url='https://graph.facebook.com', verify_ssl_certificate=True, appsecret=False, timeout=None, version=None):
+    def __init__(self, oauth_token=False, url='https://graph.facebook.com', verify_ssl_certificate=True,
+                 appsecret=False, timeout=None, version=None):
         """
         Initialize GraphAPI with an OAuth access token.
 
@@ -212,7 +214,7 @@ class GraphAPI(object):
         :param retry: An integer describing how many times the request may be retried.
         """
 
-        if(data):
+        if (data):
             data = dict(
                 (k.replace('_sqbro_', '['), v) for k, v in data.items())
             data = dict(
@@ -308,7 +310,8 @@ class GraphAPI(object):
 
         # Convert option lists to comma-separated values.
         for key in data:
-            if isinstance(data[key], (list, set, tuple)) and all([isinstance(item, six.string_types) for item in data[key]]):
+            if isinstance(data[key], (list, set, tuple)) and all(
+                    [isinstance(item, six.string_types) for item in data[key]]):
                 data[key] = ','.join(data[key])
 
         # Support absolute paths too

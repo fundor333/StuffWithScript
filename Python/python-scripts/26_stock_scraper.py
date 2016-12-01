@@ -1,6 +1,7 @@
+from collections import defaultdict
+
 import requests
 from lxml import html
-from collections import defaultdict
 
 
 def get_stocks(url):
@@ -20,8 +21,8 @@ def get_stocks(url):
 
 def output_data(data_dict):
     for industry in data_dict:
-        print('\n'+industry)
-        print('-'*len(industry))
+        print('\n' + industry)
+        print('-' * len(industry))
         for ticker in data_dict[industry]:
             print(ticker)
 

@@ -13,8 +13,9 @@ import os
 import re
 import shutil
 import sys
-from mutagen.easyid3 import EasyID3
 from collections import defaultdict
+
+from mutagen.easyid3 import EasyID3
 
 
 def main():
@@ -33,7 +34,7 @@ def main():
             p = os.path.abspath(os.path.join(dpath, fname))
             audio = EasyID3(p)
             if 'genre' in audio:
-                assert(len(audio['genre']) == 1)
+                assert (len(audio['genre']) == 1)
                 genre = toNeat(str(audio['genre'][0]))
             else:
                 genre = 'Unknown'
@@ -49,6 +50,7 @@ def main():
         with open(p, 'w') as f:
             f.write("#EXTM3U\n")
             f.write("\n".join(sorted(songs)) + "\n")
+
 
 # Maps a string such as 'The Beatles' to 'the-beatles'.
 
@@ -74,6 +76,7 @@ def toNeat(s):
         print("Error: Unrecognized character in '" + s + "'")
         sys.exit(-42)
     return s
+
 
 if __name__ == '__main__':
     main()

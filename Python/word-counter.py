@@ -29,9 +29,10 @@ $ word-counter.py shakespeare.md --numWords 4 --maxTuples 3
 ```
 """
 
-from collections import Counter
 import argparse
 import re
+from collections import Counter
+
 from toolz.itertoolz import sliding_window
 
 parser = argparse.ArgumentParser()
@@ -53,6 +54,7 @@ def filter_func(tup):
 
 def filtered_window(seq, n):
     return filter(filter_func, sliding_window(n, seq))
+
 
 with open(args.file, 'r') as f:
     content = f.read().replace('\n', ' ').lower()

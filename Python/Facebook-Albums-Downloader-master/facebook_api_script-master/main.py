@@ -1,8 +1,9 @@
-import sys
-import os
 import csv
-import numpy
+import os
+import sys
+
 import cv2
+
 
 def parse_face_coord_file(face_coord_txt_file=None):
     result = []
@@ -12,6 +13,7 @@ def parse_face_coord_file(face_coord_txt_file=None):
             for index, x_coord, y_coord in linereader:
                 result.append((int(index), float(x_coord), float(y_coord)))
     return result
+
 
 def remove_face_coordinate(face_coordinate_list, index):
     """
@@ -31,6 +33,7 @@ def remove_face_coordinate(face_coordinate_list, index):
     except ValueError:
         pass
 
+
 def display_images(filenames, face_cascade, face_coordinate_list=None):
     for file in filenames:
         # Gets the index from the filename. Assumes filename is in form "123.jpg"
@@ -44,37 +47,37 @@ def display_images(filenames, face_cascade, face_coordinate_list=None):
         print(faces)
 
         for (x, y, w, h) in faces:
-            cv2.rectangle(cv_frame, (x,y),(w+w, y+h), (255, 0, 0), 2)
+            cv2.rectangle(cv_frame, (x, y), (w + w, y + h), (255, 0, 0), 2)
 
         # NOTE: This is the coordinates from facebook!
         if face_coordinate_list:
-            image_height, image_width, _ = cv_frame.shape 
+            image_height, image_width, _ = cv_frame.shape
 
             # Facebook keeps coords as percentages!
             if face_coordinate_list:
                 x_and_y_coordinates = face_coordinate_list[index][-2:]
                 if not x_and_y_coordinates[0] is None:
-                    transformed_coords = (int(image_width/100 * x_and_y_coordinates[0]), 
-                                          int(image_height/100 * x_and_y_coordinates[1]))
+                    transformed_coords = (int(image_width / 100 * x_and_y_coordinates[0]),
+                                          int(image_height / 100 * x_and_y_coordinates[1]))
 
                     cv2.circle(cv_frame, transformed_coords, 20, (255, 106, 255))
 
-
-        while(True):
+        while (True):
             # TODO: Quit out of this function logic add me?
             cv2.imshow('{}'.format(filenames[index]), cv_frame)
 
             key_pressed = cv2.waitKey(1)
-            if key_pressed == 8: # this is the `backspace` key
+            if key_pressed == 8:  # this is the `backspace` key
                 print("removing file {}.jpg".format(index))
                 os.remove('{}.jpg'.format(index))
                 if face_coordinate_list:
                     remove_face_coordinate(face_coordinate_list, index)
                 break
-            elif key_pressed == 13: # this is the `enter` key
+            elif key_pressed == 13:  # this is the `enter` key
                 break
 
         cv2.destroyWindow(filenames[index])
+
 
 if __name__ == '__main__':
 
@@ -102,7 +105,6 @@ if __name__ == '__main__':
 
     if not os.path.exists('../haarcascade_frontalface_default.xml'):
         print("Could not find haarcascade file!")
-
 
     face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
     # this functionality needs to be looped/changed

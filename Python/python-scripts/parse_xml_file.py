@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # This example will read an XML file and parse out the data using the
 # xml.etree.ElementTree library that is included in the standard library. 
 #
@@ -19,26 +19,26 @@
 # to do a lot of XML processing, then I would suggest looking at the lxml 
 # library. It is based on libxml2 and libxslt and is fast and easy to use. You 
 # can get more information about lxml at http://lxml.de/index.html. 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Import any needed libraries below
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # We need the ElementTree module
 import xml.etree.ElementTree
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Place any necessary functions below this.
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 def print_movie(movie, year):
     print "The movie \"%s\" was released in %s.\n" % (movie, year)
 
 
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Begin the main program.
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 # Load an XML file into the tree and get the root element.
 xml = xml.etree.ElementTree.ElementTree(file='movies.xml')
@@ -53,12 +53,11 @@ for movie in movies:
     # Get the value of the "id" attribute
     id = movie.attrib['id']
     print "Parsing movie #" + id
-    
+
     # Get the text inside the first "title" tag. Returns None if the "title" 
     # tag is not found. Returns an empty string is returned if the tag was 
     # found but no text was found in the tag.
     title = movie.findtext('title')
     year = movie.findtext('released')
-    
-    print_movie(title, year)
 
+    print_movie(title, year)

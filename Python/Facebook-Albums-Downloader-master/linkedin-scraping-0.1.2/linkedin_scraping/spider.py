@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import json
 import os
+
 import dpath.util
 import tablib
-from scrapy.spiders.init import InitSpider
 from scrapy.http import Request, FormRequest
-from .items import User
+from scrapy.spiders.init import InitSpider
+
 from parser import strip_tags
+from .items import User
 
 
 class LinkedInPeopleSpider(InitSpider):

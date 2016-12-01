@@ -51,8 +51,10 @@ class EvalExpr:
         else:
             raise TypeError(node)
 
+
 if __name__ == "__main__":
     import sys
+
     if len(sys.argv) == 2:
         expr = sys.argv[1]
         print(expr + " = " + str(EvalExpr({}).evalExpr(expr)))

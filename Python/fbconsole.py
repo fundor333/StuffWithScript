@@ -1,20 +1,17 @@
 #!/usr/bin/env python
-import os.path
-import os
-import stat
-import json
-import urllib2
 import BaseHTTPServer
-import webbrowser
-import httplib
+import cookielib
+import json
 import mimetools
 import mimetypes
-import cookielib
+import os
+import os.path
+import stat
 import types
-
-from urlparse import urlparse, parse_qs
+import urllib2
+import webbrowser
 from urllib import urlencode
-from pprint import pprint
+from urlparse import urlparse, parse_qs
 
 APP_ID = '179745182062082'
 SERVER_PORT = 8080
@@ -37,6 +34,7 @@ __all__ = [
     'AUTH_SCOPE',
     'LOCAL_FILE']
 
+
 def _get_url(path, args=None, graph=True):
     args = args or {}
     if ACCESS_TOKEN:
@@ -46,10 +44,11 @@ def _get_url(path, args=None, graph=True):
         endpoint = "https://%s.facebook.com" % subdomain
     else:
         endpoint = "http://%s.facebook.com" % subdomain
-    return endpoint+str(path)+'?'+urlencode(args)
+    return endpoint + str(path) + '?' + urlencode(args)
+
 
 class _MultipartPostHandler(urllib2.BaseHandler):
-    handler_order = urllib2.HTTPHandler.handler_order - 10 # needs to run first
+    handler_order = urllib2.HTTPHandler.handler_order - 10  # needs to run first
 
     def http_request(self, request):
         data = request.get_data()
@@ -99,7 +98,6 @@ class _MultipartPostHandler(urllib2.BaseHandler):
 
 
 class _RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
-
     def do_GET(self):
         global ACCESS_TOKEN
         self.send_response(200)
@@ -111,13 +109,14 @@ class _RequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
         if ACCESS_TOKEN:
             data = {'scope': AUTH_SCOPE,
                     'access_token': ACCESS_TOKEN}
-            open(LOCAL_FILE,'w').write(json.dumps(data))
+            open(LOCAL_FILE, 'w').write(json.dumps(data))
             self.wfile.write("You have successfully logged in to facebook with fbconsole. "
                              "You can close this window now.")
         else:
             self.wfile.write('<html><head>'
                              '<script>location = "?"+location.hash.slice(1);</script>'
                              '</head></html>')
+
 
 def help():
     """Print out some helpful information"""
@@ -132,6 +131,7 @@ graph_post(path, data) - post data to the graph api with the given path
 graph_delete(path, params) - send a delete request
 fql(query) - make an fql request
 '''
+
 
 def authenticate():
     """Authenticate with facebook so you can make api calls that require auth.
@@ -153,14 +153,15 @@ def authenticate():
     if needs_auth:
         print "Logging you in to facebook..."
         webbrowser.open('https://www.facebook.com/dialog/oauth?' +
-                        urlencode({'client_id':APP_ID,
-                                   'redirect_uri':REDIRECT_URI,
-                                   'response_type':'token',
-                                   'scope':','.join(AUTH_SCOPE)}))
+                        urlencode({'client_id': APP_ID,
+                                   'redirect_uri': REDIRECT_URI,
+                                   'response_type': 'token',
+                                   'scope': ','.join(AUTH_SCOPE)}))
 
         httpd = BaseHTTPServer.HTTPServer(('127.0.0.1', SERVER_PORT), _RequestHandler)
         while ACCESS_TOKEN is None:
             httpd.handle_request()
+
 
 def graph(path, params=None):
     """Send a GET request to the graph api.
@@ -172,6 +173,7 @@ def graph(path, params=None):
 
     """
     return json.load(urllib2.urlopen(_get_url(path, args=params)))
+
 
 def graph_post(path, params=None):
     """Send a POST request to the graph api.
@@ -188,6 +190,7 @@ def graph_post(path, params=None):
         _MultipartPostHandler)
     return json.load(opener.open(_get_url(path), params))
 
+
 def graph_delete(path, params=None):
     """Send a DELETE request to the graph api.
 
@@ -202,6 +205,7 @@ def graph_delete(path, params=None):
     params['method'] = 'delete'
     return graph_post(path, params)
 
+
 def fql(query):
     """Make an fql request.
 
@@ -214,6 +218,7 @@ def fql(query):
                    args={'query': query, 'format': 'json'},
                    graph=False)
     return json.load(urllib2.urlopen(url))
+
 
 INTRO_MESSAGE = '''\
   __ _                                _
@@ -231,6 +236,7 @@ quick start:
 
 '''
 
+
 def shell():
     try:
         from IPython.Shell import IPShellEmbed
@@ -238,6 +244,7 @@ def shell():
     except ImportError:
         import code
         code.InteractiveConsole(globals()).interact(INTRO_MESSAGE)
+
 
 if __name__ == '__main__':
     shell()

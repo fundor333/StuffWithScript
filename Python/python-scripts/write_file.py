@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 # This example will open a file and read it line by line, process each line,
 # and write the processed line to standard out.
-#-----------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
 # Open a file for writing. Use 'a' instead of 'w' to append to the file.
 outfile = open('jenny.txt', 'w')

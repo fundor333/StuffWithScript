@@ -143,6 +143,7 @@ def test_get_application_access_token():
 
     assert_equal(access_token, '<application access token>')
 
+
 @with_setup(mock, unmock)
 def test_get_application_access_token_v23_plus():
     mock_request.return_value.status_code = 200
@@ -170,6 +171,7 @@ def test_get_application_access_token_v23_plus():
     )
 
     assert_equal(access_token, '<application access token>')
+
 
 @with_setup(mock, unmock)
 def test_get_application_access_token_raises_error():

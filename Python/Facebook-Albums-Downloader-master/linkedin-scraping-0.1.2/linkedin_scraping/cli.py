@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import click
+
 from .crawler import process
 from .spider import LinkedInPeopleSpider
 
