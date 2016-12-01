@@ -1,3 +1,0 @@
-[console_scripts]
-linkscrap = linkedin_scraping.cli:main
-

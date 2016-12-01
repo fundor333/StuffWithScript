@@ -1,4 +1,0 @@
-click
-dpath
-scrapy
-tablib
