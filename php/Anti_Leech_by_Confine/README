@@ -1,0 +1,13 @@
+#############################################
+# Anti-leech script by Filer from confine.com
+#
+#       Confine.com Programming Team
+#############################################
+## Installing
+# Edit the variables in the antileech.cgi file
+# Save it, and upload it to your website
+# Chmod antileech.cgi to 755
+# Upload list.dat and data.dat to your site
+# Chmod both of them to 777
+# Note: If antileech has problems opening the files, try chmoding the directory list.dat and data.dat are in to 777
+# Point your browser to the antileech.cgi file

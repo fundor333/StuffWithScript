@@ -1,0 +1,91 @@
+######################################################################
+# CGI Utils                               Version 1.01               #
+# Copyright 1999 Frederic TYNDIUK (FTLS)  All Rights Reserved.       #
+# E-Mail: tyndiuk@ftls.org                Script License: GPL        #
+# Created  05/30/99                       Last Modified 06/30/99     #
+# Scripts Archive at:                     http://www.ftls.org/cgi/   #
+######################################################################
+
+
+1. What is it ?
+===============
+
+	CGI Utils is an archive of simple CGI Scripts or sub routine to help you to
+create CGI.
+
+
+2. System Requirements:
+=======================
+
+	- Perl 4.0 or newer; you can get it at http://www.perl.com/
+	- A web server, you must have access to add / execute CGI scripts.
+
+
+3. What this archive contains ?
+===============================
+
+	This archive comes with 7 differents files:
+	    1) COPYING:      Copyright informations (GPL).
+	    2) README:       This file.
+	    3) LISEZMOI:     French doc...
+	    4) env.pl:       Display CGI's environment variables. (Perl Script)
+	    5) env.sh:       Display CGI's environment variables and Perl Path.
+	       (Unix Shell Script)
+	    6) logger:       Sub routine to log users. (Perl Script)
+	    7) CheckReferer: Sub routine to check referer, display (or not)
+	    Unauthorized access (Perl Script)
+
+
+4. Installation and Configuration:
+==================================
+
+	It's a Perl script, so installation is pretty easy. You don't need to
+compile anything. Edit file that you want to use, and look source code and
+comments...
+
+
+5. How to run it ?
+==================
+
+	Type URL of file that you want to test and look...
+	
+
+6. Version history:
+===================
+
+	Version 1.01		06/30/99  - Add Check Referer.
+	Version 1.0			05/30/99  - Archive Created.
+
+
+7. Copyright:
+=============
+
+	This software is copyright (C) 1999 Frederic TYNDIUK. It is distributed
+under the terms of the GNU General Public License (GPL). Because it is licensed
+free of charge, there is NO WARRANTY, it is provided AS IS. The author can not
+be held liable for any damage that might arise from the use of this software.
+Use it at your own risk. 
+	See the file COPYING for more details (or http://www.gnu.org/).
+
+
+8. Updates ?
+============
+
+	Latest version and New Scripts can be found at:
+	
+			http://www.ftls.org/en/
+
+
+9. Contact:
+===========
+
+	Please feel free to contact me with any comments, suggestions, bug fixes
+criticism, or just a happiness messages.
+
+	If you run into any problems while trying to configure these scripts
+first read this file carefully, if you don't find any solution, send me a Mail.
+
+	E-Mail: tyndiuk@ftls.org
+	Web: http://www.ftls.org/
+
+                                                  Frederic TYNDIUK

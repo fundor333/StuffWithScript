@@ -1,0 +1,352 @@
+File README for MasterWebpageMailer
+#	-------	Begin: header information and copyright notice	-------
+#
+#!/usr/local/bin/perl
+#
+# MasterWebpageMailer Version 1.0
+# August 2, 1999
+# Author: William Bontrager
+# Author's E-mail: william@willmaster.com
+# Author's Website: http://www.willmaster.com/
+#
+# MasterWebpageMailer is designed to email the contents of your web page (the 
+# portions you specify) to your visitor or visitor's associate.
+#
+# It is designed to be executed with Perl 5; it won't work with versions prior to 5.
+# It was developed and tested on a Unix server.
+#
+# COPYRIGHT NOTICE
+# Copyright (c) 1998, 1999 by William Bontrager. All rights reserved.
+#
+# MasterWebpageMailer may be used and modified free of charge by anyone so long as
+# this header information and copyright notice remain intact. By using and/or
+# modifying MasterWebpageMailer you agree to indemnify William Bontrager and his
+# associates from any liability that might arise from its use and/or modification.
+#
+# Selling the code for MasterWebpageMailer without prior written consent from the
+# copyright owner is expressly forbidden. You must have permission before
+# redistributing MasterWebpageMailer. In all cases, this header information and
+# copyright notice must remain intact and the README file must be readily 
+# available.
+#
+#	-------	End: header information and copyright notice	-------
+#
+#===============================
+
+MasterWebpageMailer is designed to be easily maintainable.
+
+You need four files:
+  		(1) This README file
+		(2) The MasterWebpageMailer.cgi file
+		(3) The globals.cgi file
+		(4) The web page which contains your "email this page" form
+
+Only one thing needs to be verified correct in the program code, MasterWebpageMailer.cgi: 
+		(1) the location of Perl 5 on your system
+	Once that is done, it is ready to upload.
+
+Only two things needs to be verified correct in the global variables file, globals.cgi: 
+		(1) the location and name of the mail program.
+		(2) your email address.
+	Once those are done, it is ready to upload.
+
+
+STEP-BY-STEP INSTRUCTIONS:
+
+NOTE: If you believe you are missing files or what you have is corrupted, go to 
+http://www.willmaster.com/MasterWebpageMailer and download the latest complete version.
+
+There are six (6) steps to a working installation of MasterWebpageMailer.
+
+Before continuing, ensure that Perl 5+ is available on your system. If you don't know, 
+your system administrator is the one to ask.
+
+(1) Modify the MasterWebpageMailer.cgi program code:
+
+The first line of the MasterWebpageMailer program code, all the way at the top, 
+	must contain the location of Perl 5 on your system. The line begins with 
+	"#!" (without the quotes) and ends with the location (no white space). 
+	(Note: MasterWebpageMailer will not work with versions of Perl prior to 5.)
+
+(2) Modify the globals.cgi file:
+
+	(a) Modify the value of the variable MailProgram to reflect the location and 
+  		name of your mail program. 
+
+	(b) Modify the value of the variable ToAddy to reflect the email address where 
+  		you want the forms results emailed to. For additional insurance from email 
+	      harvesting, use an asterisk ("*") in your email address instead of the 
+      	commecial at symbol ("@"). The program will then fix the address before use.
+
+(3) Upload the MasterWebpageMailer.cgi and globals.cgi into a directory/folder 
+	which is allowed to execute CGI programs. Be sure to upload the files 
+	as ASCII text files rather than as binary files.
+
+(4) Set the file permissions:
+	CHMOD MasterWebpageMailer.cgi to 755.
+	755 translates to "read/write/execute - read/execute - read/execute"
+	If you don't have telnet access to your system, some FTP programs, 
+	such as WS_FTP95 LE (possibly available at www.tucows.com), allow 
+	changing file and directory permissions. (With WS_FTP95 LE, select 
+	a file or directory; right-click; select "chmod UNIX"; check 
+	owner/read, owner/write, owner/execute, group/read, group/execute, 
+	other/read, and other/execute; and click "OK".)
+
+(5) Create the form to be used with MasterWebpageMailer. It is suggested that the 
+    form be on the web page whose contents are to be emailed.
+
+	In the following instructions, an example form with all fields present, 
+	heavily commented, is used. The form is presented, one section at a time, 
+	and then presented in its entirety at the end.
+
+	All fields are required.
+
+<form method="POST" action="http://www.willmaster.com/cgi-bin/MasterWebpageMailer.cgi">
+
+	The form's method can be either POST or GET (all capital letters). 
+
+	The form's action is the URL of the MasterWebpageMailer program code on your 
+	system. Replace "http://www.willmaster.com/cgi-bin/MasterWebpageMailer.cgi" 
+	with the correct URL.
+
+<input type="hidden" name="path" value="/usr/local/htdocs/MasterWebpageMailer/index.html">
+
+	This is the only hidden fields. The value of this hidden field, path, is the 
+	server location and name of the web page file whose contents are to be emailed.
+
+	(Note: This is the location and name of the file on your server, not the URL.)
+
+<input type=hidden name="redirect" value="http://www.willmaster.com/MasterWebpageMailer/thankyou.html">
+
+	The value of this hidden field, redirect, is the URL where the visitor's browser 
+  	will be redirected to after they successfully submit feedback to you. If you do 
+	not provide this URL, the program will try to bring the visitor back to the page 
+	where the form is located.
+
+<input type="text" name="fromemail">
+
+	This is the field where your visitors type in their email address. The email 
+	with your web page contents will have this email address in the "From:" line.
+
+<input type="text" name="name">
+
+	This is the field where your visitors type in their name.
+
+<input type="text" name="toemail">
+
+	This is the field where your visitors type where the email with your web page 
+	contents will be sent to.
+
+<input type=submit value="Mail This Page!"></font></td>
+
+	This is what your visitor clicks on after the fields have been filled in. You 
+	may change the value to whatever you want the button to say.
+
+</form>
+
+	This is the end of the form.
+
+	Below is the same form, presented in its entirety (with some additional formatting):
+
+<form method="POST" action="http://www.willmaster.com/cgi-bin/MasterWebpageMailer.cgi">
+<input type="hidden" name="path" value="/usr/local/htdocs/MasterWebpageMailer/index.html">
+<input type=hidden name="redirect" value="http://www.willmaster.com/MasterWebpageMailer/thankyou.html">
+FROM email: <input type="text" name="fromemail">
+<br>
+Your name: <input type="text" name="name">
+<br>
+TO email: <input type="text" name="toemail">
+<br>
+<input type=submit value="Mail This Page!"></font></td>
+</form>
+
+	Insert the form into your web page.
+
+(6) Mark the text of your web page which is to be emailed on demand.
+
+	You decide which portions of your page is to be emailed. You may email invisible 
+	portions, too (not visible in the browser).
+
+	As you progress through this section, you can use the MasterWebpageMailer download 
+	page as an example. You may save the source code to your computer for reference. 
+	It is at http://www.willmaster.com/MasterWebpageMailer/index.html 
+
+	The program will only email what you tell it to.
+
+	To begin an emailing portion,use the code:
+
+BEGIN MasterWebpageMailer 
+
+	To end an emailing portion, use the code:
+
+END MasterWebpageMailer 
+
+	You can have many different portions of content for emailing. Just use the begin and 
+	end codes to tell the program what to do.
+
+	The program never prints any line which contains either of the above begin or end codes.
+
+	The program prints everything between the begin and end codes, including line breaks, 
+	EXCEPT it strips out all HTML tags.
+
+	Usually, you don't want the begin and end codes to be visible in your browser web 
+	page. The codes can be put into HTML comment areas to hide them.
+
+	Here is how the codes are used:
+
+	This first example prints both in the browser and in the email.
+
+<!-- BEGIN MasterWebpageMailer -->
+This text shows up in the browser.
+It is also marked for emailing.
+<!-- END MasterWebpageMailer -->
+
+	The second example prints only in the email. Notice that the whole thing is within
+	one comment area.
+
+<!-- BEGIN MasterWebpageMailer
+This text goes out in the email
+but does not show in the browser.
+END MasterWebpageMailer -->
+
+	That's the basics.
+
+	In preparing your page, the first step is to decide how you want your email 
+	to look. Here is an example:
+
+The web page from where this was sent is at 
+http://www.domain.com/index.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The breakdown of the coffee bean began during a harvest.
+A worker accidentally stepped on a bean and crushed it. On 
+impulse, the worker dropped the crushed bean into a cup of
+water.
+
+Now, the sun has been shining on that cup of water for some 
+time. The water was hot.
+
+When the worker sipped the result, "coffee" was born. And 
+it was the beginning of demand for broken coffee beans.
+
+Cost of BuckStore Coffee (hot):
+
+Size               Price
+
+ 8 oz.             $ .69
+12 oz.             $4.79
+48 oz.             $ .29
+
+As you can see, since the original crush nothing makes 
+sense any more.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thank you for allowing us to serve you.
+
+My Name
+My Title
+
+
+	Okay, let's suppose that only the center portion, between the "~~~ ..." lines, is
+	to be displayed on the browser's web page.
+
+	Here is the complete HTML page which will display what you want in the browser and
+	also email, properly formatted, what you want emailed. (Of course, the CGI program 
+	must be installed, and the form's action="________" and "path" must be corrected.)
+
+
+<HTML><HEAD><TITLE>Example</TITLE></HEAD>
+<BODY>
+<!-- BEGIN MasterWebpageMailer
+The web page from where this was sent is at 
+http://www.domain.com/index.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+END MasterWebpageMailer -->
+
+<BLOCKQUOTE>
+
+<!-- BEGIN MasterWebpageMailer -->
+<P>
+The breakdown of the coffee bean began during a harvest.
+A worker accidentally stepped on a bean and crushed it. On 
+impulse, the worker dropped the crushed bean into a cup of
+water.
+<P>
+Now, the sun has been shining on that cup of water for some 
+time. The water was hot.
+<P>
+When the worker sipped the result, "coffee" was born. And 
+it was the beginning of demand for broken coffee beans.
+<P>
+Cost of BuckStore Coffee (hot):
+<P><TABLE><TR>
+<TH>Size</TH><TH>               Price</TH>
+</TR><TR>
+<TD ALIGN="RIGHT"> 8 oz.</TD><TD>             $ .69</TD>
+</TR><TR><TD ALIGN="RIGHT">12 oz.</TD><TD>             $4.79</TD>
+</TR><TR><TD ALIGN="RIGHT">48 oz.</TD><TD>             $ .29</TD>
+</TR></TABLE>
+<P>As you can see, since the original crush nothing makes 
+sense any more.
+
+<!-- END MasterWebpageMailer -->
+
+<h4>Send this page to a friend!</h4>
+
+<p>Just fill in the form and click the button!
+
+
+</BLOCKQUOTE>
+
+<CENTER>
+
+<form method="POST" action="http://www.willmaster.com/cgi-bin/MasterWebpageMailer.cgi">
+<input type="hidden" name="path" value="/usr/local/htdocs/coffee/index.html">
+FROM email: <input type="text" name="fromemail">
+<br>
+Your name: <input type="text" name="name">
+<br>
+TO email: <input type="text" name="toemail">
+<br>
+<input type=submit value="Mail This Page!"></font></td>
+</form>
+
+</CENTER>
+
+<!-- BEGIN MasterWebpageMailer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Thank you for allowing us to serve you.
+
+My Name
+My Title
+END MasterWebpageMailer -->
+</BODY>
+</HTML>
+
+	Upload the web page to your server.
+
+	Test it :)
+
+	
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==
+
+	Thank you for using MasterWebpageMailer. And thank you in advance for 
+	spreading the word of its availability.
+
+	If you have any kudos, constructive criticism, or suggestions you wish 
+	to share, feel free to write to me at william@willmaster.com with 
+	"MasterWebpageMailer Comment" in the subject line.
+	mailto:william@willmaster.com?Subject=MasterWebpageMailer%20Comment 
+
+	I do get quite a bit of mail, so please be patient. Eventually, I should 
+	get back to you.
+
+	When you have the time to enjoy a bit of leisure, please visit our business 
+	website at http://www.willmaster.com/ and our other unique websites which 
+	are linked from http://www.willmaster.com/connection/
+
+	Sincerely,
+
+	William Bontrager
+	Programmer of Screaming Hot CGI -- see http://www.willmaster.com/hotcgi/
+	Publisher of WillMasterPossibilities -- see http://www.willmaster.com/possibilities/

@@ -1,0 +1,62 @@
+**********************************************************
+This is the readme file for the File Explorer v1.3 Project
+
+by Fabien HADDADI, tropicalm@free.fr, fhaddadi@hotmail.com
+**********************************************************
+  
+-----------
+Important :
+-----------
+
+This web file explorer takes for root directory the directory
+defined in the pathfile path.ini.
+
+Tailor the variable $ROOTURL to the URL of the directory you want
+to be the root directory of (i.e. the base browsed by) the explorer.
+Then, tailor the variable $ROOPATH to the physical full path 
+represented by $ROOTURL.
+
+A dynamic example using environment variable is currently given in path.ini
+but feel free to change this settings by static settings.
+
+********
+Example
+********
+
+For example, your web site is installed under /var/www/mysite,
+and the URL of this site is http://www.mysite.com
+Your explorer is installed under /var/www/mybackoffice, and the URL of the back-office
+is http://www.mybackoffice.com.
+
+Say you want to set the root directory of the explorer to http://www.mysite.com,
+then write those two line instead of the existing definitions in path.ini:
+
+	$ROOTURL="http://www.mysite.com";
+	$ROOTPATH="/var/www/mysite";
+
+Later, you will browse your site at the URL http://www.mybackoffice.com/explorer
+
+***********
+Preferences
+***********
+
+Tailor the file explorer.cfg to your own preferences:
+
+$IsSim: 0 or 1,
+	0 for real mode, allow file writing, mkdir and rmdir
+	1 for simulation, file writing is disable in this mode.
+
+$IsShowDelete: 0 or 1
+	0 to hide the Delete button in the explorer
+	1 to display the Delete button.
+
+-----------------------------------------------------------------------------------
+
+
+My platform is PHP Version 4.0.4pl1,MySQL 3.23.22, Apache/1.3.9,Linux-Mandrake
+
+
+Enjoy, and please contact me any for bugs reports or information you'll find relevant!
+tropicalm@free.fr || fhaddadi@hotmail.com
+
+ORLEANS, FRANCE, 2 August 2001

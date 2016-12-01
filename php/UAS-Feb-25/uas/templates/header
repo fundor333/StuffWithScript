@@ -1,0 +1,35 @@
+<HTML>
+<HEAD>
+<TITLE>Universal Admin Panel</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+<BODY BGCOLOR=#FFFFFF>
+
+<CENTER>
+<TABLE BORDER=0 CELLPADDING=1 CELLSPACING=1 BGCOLOR=BLACK><TR VALIGN=TOP><TD>
+<TABLE WIDTH=700 BORDER=0 CELLPADDING=0 CELLSPACING=0 BGCOLOR=WHITE HEIGHT=100%>
+	<TR>
+		<TD COLSPAN=8>
+			<IMG SRC="/admin/images/header_01.gif" WIDTH=700 HEIGHT=53></TD>
+	</TR>
+	<TR>
+		<TD>
+			<IMG SRC="/admin/images/header_02.gif" WIDTH=222 HEIGHT=26></TD>
+		<TD>
+			<A HREF="{{^SCRIPT_NAME}}?action=add&fpc={{$fpc}}"><IMG SRC="/admin/images/header_03.gif" WIDTH=99 HEIGHT=26 ALT="View Listing" BORDER=0></A></TD>
+		<TD>
+			<IMG SRC="/admin/images/header_04.gif" WIDTH=18 HEIGHT=26></TD>
+		<TD>
+			<A HREF="{{^SCRIPT_NAME}}?fpc={{$fpc}}&inc={{$inc}}&start={{$start}}"><IMG SRC="/admin/images/header_05.gif" WIDTH=110 HEIGHT=26 ALT="Add New Entry" BORDER=0></A></TD>
+		<TD>
+			<IMG SRC="/admin/images/header_06.gif" WIDTH=20 HEIGHT=26></TD>
+		<TD>
+			<A HREF="{{^SCRIPT_NAME}}"><IMG SRC="/admin/images/header_07.gif" WIDTH=125 HEIGHT=26 ALT="Select Module" BORDER=0></A></TD>
+		<TD>
+			<IMG SRC="/admin/images/header_08.gif" WIDTH=21 HEIGHT=26></TD>
+		<TD>
+			<A HREF="{{^SCRIPT_NAME}}?action=options"><IMG SRC="/admin/images/header_09.gif" WIDTH=85 HEIGHT=26 ALT="Options" BORDER=0></A></TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=8 HEIGHT=100%>
+		&nbsp;<BR>

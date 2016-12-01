@@ -1,0 +1,105 @@
+###################################################################### 
+#
+#     The Dream Catcher's Web Free CGI Scripts 
+#     Book of Guests
+#     Created by Seth Leonard
+#
+#     http://dreamcatchersweb.com/scripts/
+#
+#     (c)2000 Seth Leonard
+#     All Rights Reserved
+#
+######################################################################
+
+Step by step instructions for Book of Guests
+
+CONTENTS:
+
+guest.cgi - the cgi script which operates your guestbook
+guestbook.htm - the html file which will hold your guestbook entries
+readme - this file
+sign.htm - the html file which people will sign the guestbook from
+
+Follow these easy steps:
+
+1.  Contact your server administrator.  Ask them to create a cgi-bin directory for you.  Also ask them how one can access a file in that directory from WWW.  Usually this is "http://www.server.com/you/cgi-bin/".
+
+2.  If you have telnet access to your server, log onto your server.  At the command prompt, type "which perl".  Write down the line given to you.  Usually this is /usr/local/bin/perl.  Next, type "which sendmail".  Write down the line given to you.  Usually this is /usr/bin/sendmail.  If there is not sendmail program, type "which mail" and use this instead.  Next, type "which date".  Write down the line given to you.  Usually this is /bin/date. If you do not have telnet access, ask your server where the perl, mail, and date programs reside.
+
+3.  Using your favorite text editor, open the guest.cgi file included in the files you downloaded from the Dream Catchers CGI Scripts page.
+
+4.  The first line of guest.cgi has the line: 
+
+#!/usr/local/bin/perl
+
+If the line you recieved from your server when you typed "which perl" is different, replace the one there.  Keep the #! and don't change anything if it is the same one you were given.
+
+5.  Find the section that says "ONLY EDIT THIS PART OF THE SCRIPT" and change the vaiables so that the match your home directory.
+
+NOTE: The values already placed there are examples!!  These are the common formats for how servers set up directories.  You need to fill in your own values!  DO NOT DELETE THE CHARACTERS OUTSIDE OF THE VALUES: ' " ;
+
+For example, guestlocation is the url for your guestbook, so you would change:
+
+$guestlocation = "http://www.something.com/~you/guestbook.html";
+
+you would change to:
+
+$guestlocation = "http://www.microsoft.com/~billgates/guestbook.html";
+
+Change the values of:
+
+$guestlocation = the url of your guestbook
+$guestpath = the actual path through your home directory to your guestbook
+$cgilocation = the url of the guest.cgi file
+$mailprog = the name of the program that you received when you asked "which mail".
+$youmail = your email address
+$yourname = your name (it will appear on the email sent to the guestbook signees)
+$getdate = the name of the program that you received when you asked "which date".
+
+6.  You are done changing this file.  Save the file as guest.cgi.
+
+7.  Open the sign.htm file that came with the bookofguests.zip files you downloaded off of Dream Catchers CGI Scripts Page.  Change the line:
+
+<FORM METHOD="POST" ACTION="http://your_cgi-bin/guest.cgi">
+
+by replacing "your_cgi-bin" with the address that your server gave you to access your cgi-bin from the WWW.  Usually this is "www.server.com/you/cgi-bin".
+
+8.  Edit the sign.htm file to match however you would like your page to look. YOU SHOULD ONLY CHANGE ONE THING BETWEEN THE <FORM> TAG AND THE </FORM> TAG, THE FOLLOWING SECTION:
+
+<!--ONLY CHANGE THIS SECTION!!-->
+<SELECT NAME="howfound">
+<OPTION VALUE="">How'd You Find Me?
+<OPTION>Blind Luck I Guess
+<OPTION>Dream Catchers CGI Scripts
+<OPTION>Link
+<OPTION>A Search Engine
+<OPTION>Word of Mouth
+<OPTION>A Better Question is How Can I Leave?
+</SELECT>
+<!--ONLY CHANGE THE ABOVE SECTION!!-->
+
+YOU CAN CHANGE ANY OF THE OPTIONS YOU WANT AND ADD OR SUBTRACT OPTIONS AS WELL.  YOU PROBABLY WANT TO KEEP THE "HOW'D YOU FIND ME" OPTION SO THAT YOUR VISITORS KNOW WHAT THEY ARE CHOOSING.
+
+9.  Save sign.htm and open guestbook.htm.  Edit the guestbook.htm file to match however you would like your page to look, but do not erase the <!--begin--> line!  All entries will be added below this line, with the most recent being added directly below it.
+
+10.  Upload all .cgi files into your cgi-bin and .htm or .html files to any directory that can be accessed via the web (many servers require that you upload these types of files in ASCII format, check with your server administrator to be sure).
+
+11.  You now need to set the permissions of the files you've uploaded.  You can do this one of two ways.  
+
+	1. TELNET - telnet into your server and go to the directory which holds the files.  Type chmod [permission] filename.  For example: chmod 755 file.cgi.
+
+	2. FTP SOFTWARE - you'll need to find out how to change permissions of the files using your specific program.  Using WS_FTP (recommended), select the file you want to change permissions of and click your right mouse button and select CHMOD (UNIX).  A box will appear with the option to select any number of 9 separate boxes (top row for read, middle row for write, bottom row for execute).  These translate into actual unix permissions.  If the file needs to be a+rx or 755, select every read box and every execute box (that is every box on the top and bottom rows).  If the file needs to be a+rw or 666, select every read box and every write box (that is every box on the top and middle rows).  These are the only two permissions you need to worry about.
+
+The files included need to following permissions:
+
+guest.cgi      a+rx or 755
+guestbook.htm  a+rw or 666
+
+If you have telnet access, you can also check your scripts for errors by going to the directory they reside in and typing either perl filename.cgi or filename.cgi (depends on your server).  If you get an error, you most likely edited the script where you shouldn't have or forgot to put a " or ; on one of your variable definitions.
+
+12.  Load the sign.htm page from the internet, fill in the guestbook, and submit it to make sure that you get the response page telling you what you filled in.  Go back to your guestbook and make sure that the new entry is there.  Wait a few seconds.  Check your mail and see if you have the response in your mailbox.  Everything working?
+
+13.  Smile, you're done...
+
+All working?  Great!  You now have a Guestbook.  If there are problems, please consult http://dreamcatchersweb.com/scripts and chose the Frequently Asked Questions option.  You can also post a message on the User Forum asking for help from other users.  Please do not send email, it WILL NOT be answered.  I apologize for this, but there were just too many requests to be able to offer quality help for all as well as work on new projects.
+

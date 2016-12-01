@@ -1,0 +1,145 @@
+##############################################################################
+# c2countit                        Version 1.31                              #
+# Copyright 1998 Chad Casselman    webmaster@websitereporter.com             #
+# Created 01/15/98                 Last Modified 05/16/98                    #
+# URL: http:/www.websitereporter.com                                         #
+##############################################################################
+##############################################################################
+# COPYRIGHT NOTICE                                                           #
+# Copyright 1998 Chad Casselman.    All Rights Reserved.                     #
+#                                                                            #
+# Counter may be used and modified free of charge by anyone so long as       #
+# this copyright notice and the comments above remain intact.  By using this #
+# code you agree to indemnify Chad Casselman from any liability that         #  
+# might arise from it's use.                                                 #  
+#                                                                            #
+# Selling the code for this program without prior written consent is         #
+# expressly forbidden.  In other words, please ask first before you try and  #
+# make money off of my program.                                              #
+#                                                                            #
+# Obtain permission before redistributing this software over the Internet or #
+# in any other medium.	In all cases copyright and header must remain intact.#
+#                                                                            #
+##############################################################################
+
+This counter script is built for users to be able to create a counter 
+and use it on their home page without having to use Server Side 
+Includes or hosted counters.
+
+This program needs a small program called fly.  If you do not have it or did
+not download the version of c2countit that has fly included please go to
+http://www.unimelb.edu.au/fly/fly.html and download the latest version.  
+
+If you do not have fly on your server you need to install it for this program
+to work correctly.  For more instruction for installing fly or c2countit
+please refer to http://www.websitereporter.com/support. 
+
+FILES included.
+---------------------------------------------------------------------------
+
+..../c2countit/
+              /c2countit.cgi              - the counter script
+              /README                     - installation instructions
+              /test.html                  - test web page
+              /digits/                    - digit directory
+                     /0.gif               - digit image
+                     /1.gif               - digit image
+                     /2.gif               - digit image
+                     /3.gif               - digit image
+                     /4.gif               - digit image
+                     /5.gif               - digit image
+                     /6.gif               - digit image
+                     /7.gif               - digit image
+                     /8.gif               - digit image
+                     /9.gif               - digit image
+                     /bad_referer.gif     - bad referer image
+
+
+
+INSTALLATION
+---------------------------------------------------------------------------
+Place the files in a subdirectory called "c2countit" off of your
+  cgi-bin, or in a folder that can handle executions of cgi scripts.
+  (ie: http://www.yourdomain.com/cgi-bin/c2countit/ )
+
+c2countit must have the correct permissions set usually "755".
+   For more help see http://www.websitereporter.com/support.
+
+NOTE: ALL FILES IN c2countit MUST BE UPLOAD AS ASCII UNLESS IT IS AN IMAGE!!!
+
+
+THE ONLY NEEDED MODIFICATIONS:
+---------------------------------------------------------------------------
+
+#!/usr/local/bin/perl 	
+       Change to location of perl on your web server.
+        -type 'whereis perl' for the location.  
+
+#######################################################################
+#########################> USER OPTIONS <##############################
+#######################################################################
+
+$file_dir = "/path/to/directory/cgi/c2countit";
+	Place the absolute directory of where c2countit resides.
+
+$fly = "/path/to/directory/cgi/c2countit/fly -q";
+	Place the absolute location of fly.
+
+$filetemp = time;
+      DO NOT CHANGE OR ALTER!
+
+$temp = "/path/to/directory/cgi/c2countit/$filetemp.txt";
+	Place the absolute location of where the fly temp file will be created.
+
+$block_repeats = "0";
+	1 = The reload button does not increment the count (more accurate count)!
+	0 = The count is incremented every time the page is viewed.
+
+$private = "0";
+	1 = Check referer list against caller.
+	0 = Anyone can call the script.
+
+@site_urls = ("websitereporter.com","www.websitereporter.com","209.130.97.145");
+	List of domains that are allowed to call the counter.
+      ONLY if $private = "1";
+
+$digit_dir = "/path/to/directory/cgi/digits";
+	Directory of where the digits are stored! Digits MUST be named 0.gif, 1.gif, ....
+
+$width = "15";
+	Width of a digit.
+
+$height = "20";
+	Height of a digit.
+
+#######################################################################
+########################> END USER OPTIONS <###########################
+#######################################################################
+
+USING THE SCRIPT! 
+---------------------------------------------------------------------------
+
+To call the counter use the following link:
+<img src="/cgi/c2countit.cgi?PAGE_NAME">
+
+*** PAGE_NAME is a unique name for the calling page.  Use a different name
+    for different counters or the same name to have several pages call the 
+    same counter. PAGE_NAME cannot contain ".","/","\", or " "! 
+
+NOTE: c2countit is LinkWare!
+      We ask that you please place this link on your page!
+
+    <a href="http://www.websitereporter/freescripts/c2countit.html" target="_top"><img
+    src="http://www.websitereporter.com/images/c2countit_butn.gif" alt="GET IT!"
+    width=88 height=31 border=0></a>
+
+THAT'S ALL! :)
+
+______________________________________________________________________________
+Still having problems?
+  See online manuals at http://www.websitereporter.com/support
+
+(c) 1998 Copyright Chad Casselman    http://www.websitereporter.com
+______________________________________________________________________________
+
+

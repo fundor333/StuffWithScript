@@ -1,0 +1,30 @@
+
+<CENTER>
+<TABLE WIDTH=457 BORDER=0 CELLPADDING=0 CELLSPACING=0>
+	<TR>
+		<TD COLSPAN=5>
+			<IMG SRC="/admin/images/dialog_01.gif" WIDTH=457 HEIGHT=1></TD>
+	</TR>
+	<TR>
+		<TD ROWSPAN=3>
+			<IMG SRC="/admin/images/dialog_02.gif" WIDTH=1 HEIGHT=147></TD>
+		<TD COLSPAN=3>
+			<IMG SRC="/admin/images/dialog_03.gif" WIDTH=455 HEIGHT=88></TD>
+		<TD ROWSPAN=3>
+			<IMG SRC="/admin/images/dialog_04.gif" WIDTH=1 HEIGHT=147></TD>
+	</TR>
+	<TR>
+		<TD>
+			<A HREF="{{^SCRIPT_NAME}}?action=delete&confirm=true&fpc={{$fpc}}&ID={{$ID}}"><IMG SRC="/admin/images/dialog_05.gif" WIDTH=82 HEIGHT=58 ALT="OK" BORDER=0></A></TD>
+		<TD>
+			<IMG SRC="/admin/images/dialog_06.gif" WIDTH=296 HEIGHT=58></TD>
+		<TD>
+			<A HREF="{{^SCRIPT_NAME}}?fpc={{$fpc}}"><IMG SRC="/admin/images/dialog_07.gif" WIDTH=77 HEIGHT=58 ALT="Cancel" BORDER=0></A></TD>
+	</TR>
+	<TR>
+		<TD COLSPAN=3>
+			<IMG SRC="/admin/images/dialog_08.gif" WIDTH=455 HEIGHT=1></TD>
+	</TR>
+</TABLE>
+</CENTER>
+

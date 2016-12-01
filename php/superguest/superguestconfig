@@ -1,0 +1,16 @@
+GuestBook=/usr/home/leif/public_html/conservatives/atheist/scripts/guestbook.txt
+newform=http://www.conservatives.net/atheist/scripts/superguest.cgi
+mailprog=/usr/sbin/sendmail
+Password=password
+Title=Tammie's Husband's Guestbook
+fields=Rank|Your Name|Your E-mail|Homepage Url|Homepage Title|Comments
+Required=Your Name|Your E-mail|Comments
+MyEmail=your@email.com
+MyName=Your Name
+MailMe=no
+PermitHtml=no
+MultipleSign=yes
+banned=202.188.159.172|190.12.150.300
+template=/usr/home/leif/public_html/conservatives/atheist/scripts/supertemplate
+Header=/usr/home/leif/public_html/conservatives/atheist/scripts/header
+Footer=/usr/home/leif/public_html/conservatives/atheist/scripts/footer

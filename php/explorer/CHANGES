@@ -1,0 +1,29 @@
+**********************************************************
+This is the changes file for the File Explorer v1.3 Project
+
+by Fabien HADDADI, tropicalm@free.fr, fhaddadi@hotmail.com
+**********************************************************
+
+Date:
+02 August 2001
+
+Changes:
+minor graphical improvement with the send icon
+
+Date:
+19 July 2001
+
+Changes:
+a bug in expl2save.php3 was corrected,
+in case of simulation, the writing of a file loaded
+the explorer index into the more options window 
+
+a flag IsRemoveSlashes has been added to explorer.cfg
+in case you don't want save.php3 to remove added escape
+characters when the HTML form of edit.php3 is sent.
+The default is 1 (remove), some may not prefer not,
+according to their platform and needs.
+****************************************************
+
+
+ORLEANS, FRANCE, 19 July 2001

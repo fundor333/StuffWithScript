@@ -1,0 +1,31 @@
+#
+#                     CGI  SCRIPTS  ARCHIVE 
+#	  	       VR9 Search ver 1.3
+#-------------------------------------------------------------------#
+# Installation Instructions: 
+#-----------------------------
+#
+# 1: Change the settings below to what your settings are!!!	
+# 2: Copy this file search.pl and addurl.pl to your cgi-bin
+# 3: Copy the list.dat to a separate directory
+#	eg /lists/
+# 4: chmod search.pl and addurl.pl to 755
+# 5: chmod list.dat to 777
+# 6: chmod /lists/ to 777
+# 7: change all of the settings below to your servers settings
+# 8: Upload the rest of the files to one directory
+#	eg /search/
+# 9: make sure that add.html and index.html are set to call the right
+#    cgi files like add.html should call addurl.pl and index.html 
+#    should call search.pl!! 
+# 10: Now everything should work fine!!
+#
+#-------------------------------------------------------------------# 
+# This program is Shareware and shall be distributed freely but if
+# you use this program you must keep a link to the scripts archive.
+# Do not change the Header/Credits in any way.
+# 
+#	CGI Scripts Archive: 
+#	http://webit.vr9.com/scripts/
+#	e-mail scripts@webit.vr9.com       
+#

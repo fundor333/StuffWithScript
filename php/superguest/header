@@ -1,0 +1,106 @@
+<html><head><title>Scripts by Tammie's Husband</title>
+</head><body bgcolor=661a7f link=cc33ff vlink=cc33ff alink=red>
+<font face="Arial,Helvetica,Verdana,Geneva" size=4>
+<center>
+<table width=100% border=0 bgcolor=white cellpadding=1><tr><Td>
+	<form action=search.cgi method=POST>
+	<table border=0 width=100%><tr>
+	<td align=left>
+	<a href=index.html><img src=logo.gif border=0></a>
+	</td>
+	<td align=right valign=bottom>
+	<font color=cc33ff><b>SEARCH: </b><input type=text name=SearchString><input type="image" name="search" src="go.gif" alt="Search" border="0" align="absmiddle">
+	<a href=index.html?Contact><img src=email.gif border=0></a>
+	<a href=index.html?Register><img src=register.gif border=0></a></form>
+	</td>
+	</tr>
+	</table>
+
+
+
+<p>
+
+<table border=0 width=100% cellpadding=0 cellspacing=0>
+
+	<tr>
+		<td background=purple.gif valign=top rowspan=2>
+			<img src=whitecorner.gif>
+		<p>&nbsp;<p><p>&nbsp;<p><p>&nbsp;<p><p>&nbsp;<p><p>&nbsp;<p>
+		
+			<!-- here's where I pre-load my images. I make 'em one pixel wide and high
+				 because the rumor is that some versions of IE choke on 0 values. Since
+				 my images are purple (mostly), I hide them in my purple side rail. -->
+			<img src=clear.gif width=20 align=left><br>
+			<br><img src=guestbooks_on.gif height=1 width=1>
+			<br><img src=forms_on.gif height=1 width=1>
+			<br><img src=countstats_on.gif height=1 width=1>
+			<br><img src=chat_on.gif height=1 width=1>
+			<br><img src=ads_on.gif height=1 width=1>
+			<br><img src=quiz_on.gif height=1 width=1>
+			<br><img src=html_on.gif height=1 width=1>
+			<br><img src=other_on.gif height=1 width=1>
+			<br><img src=help_on.gif height=1 width=1>
+		
+
+		
+		</td>
+	
+		<td background=purple.gif colspan=2>
+			<img src=clear.gif width=100% height=9>
+		
+			<table border=0 cellpadding=0 cellspacing=0>
+				<Tr>
+				<!-- begin first cell in second row. This contains my menu -->	
+					<td background=purple.gif align=left colspan=3 valign=top>
+
+					<!-- I learned the hard way that JavaScript people are out of their stinking minds.
+					 So I ignored all their advice and went with a simple onmouseover rollover for
+					 my images. To keep the images from taking a long time to load, I pre-load them
+					 with the page (you'll see that below). I believe there's a special place reserved
+					 in prison for people who code JavaScript. It's the same place they put violent
+					 masochists and other perverse criminals. -->
+					<a href=index.html?guestbooks onMouseOver='guestbooks.src="guestbooks_on.gif"' onMouseOut='guestbooks.src="guestbooks_off.gif"'>
+					<img src="guestbooks_off.gif" name="guestbooks" border="0" alt="[GUESTBOOKS]"></a>
+			
+					<a href=index.html?forms onMouseOver='form.src="forms_on.gif"' onMouseOut='form.src="forms_off.gif"'>
+					<img src="forms_off.gif" name="form" border="0" alt="[GUESTBOOKS]"></a>
+			
+					<a href=index.html?countstats onMouseOver='countstats.src="countstats_on.gif"' onMouseOut='countstats.src="countstats_off.gif"'>
+					<img src="countstats_off.gif" name="countstats" border="0" alt="[COUNT/STATS]"></a>
+			
+					<a href=index.html?chat onMouseOver='chat.src="chat_on.gif"' onMouseOut='chat.src="chat_off.gif"'>
+					<img src="chat_off.gif" name="chat" border="0" alt="[CHAT]"></a>
+			
+					<a href=index.html?ads onMouseOver='ads.src="ads_on.gif"' onMouseOut='ads.src="ads_off.gif"'>
+					<img src="ads_off.gif" name="ads" border="0" alt="[ADS]"></a>
+			
+					<a href=index.html?quiz onMouseOver='quiz.src="quiz_on.gif"' onMouseOut='quiz.src="quiz_off.gif"'>
+					<img src="quiz_off.gif" name="quiz" border="0" alt="[QUIZ]"></a>
+			
+					<a href=index.html?html onMouseOver='html.src="html_on.gif"' onMouseOut='html.src="html_off.gif"'>
+					<img src="html_off.gif" name="html" border="0" alt="[HTML]"></a>
+			
+					<a href=index.html?other onMouseOver='other.src="other_on.gif"' onMouseOut='other.src="other_off.gif"'>
+					<img src="other_off.gif" name="other" border="0" alt="[OTHER]"></a>
+			
+					<a href=help.html onMouseOver='help.src="help_on.gif"' onMouseOut='help.src="help_off.gif"'>
+					<img src="help_off.gif" name="help" border="0" alt="[?]"></a>
+			
+				</td>
+			</tr>
+	
+			<tr>
+				<td background=purple.gif colspan=2>
+				<img src=clear.gif width=100% height=9>
+				</td>
+			</tr>
+			<tr>
+				
+		<td valign=top background=white.gif>
+			<img src=corner.gif>
+		</td>
+	
+	
+	<!-- main content cell -->	
+		<td valign=top background=white.gif width=100%><p>&nbsp;<p><font face="Arial,Helvetica,Verdana,Geneva" size=4>
+		

@@ -1,0 +1,25 @@
+Installation Instructions:
+
+These instructions are basic.  Please check http://www.customprogramming.net/
+for more complete instructions.
+
+First, move the 'uas' directory into your cgi-bin.
+IMPORTANT: Protect the uas directory!!  Put a htaccess file in there!
+Next, move the 'images' directory into somewhere accessable from the outside
+	world
+Now edit lib.config.pl in the uas directory.  Point the config to the
+	correct SQL details.  SQL is not required for the UAS, but ALL
+	modules for the UAS require SQL.  If you don't have a SQL database
+	ask your system administrator for one.  The UAS uses mysql currently
+	but should work with other servers with only a few changes.
+
+	If you would simply prefer to change web hosts, we recommend
+	http://www.hypa.net/ (or check customprogramming.net for a list
+	of compatible ISPs which provide SQL access.
+Chmod the file 'home' to 755.
+Point your browser to http://yourdomain.com/cgi-bin/admin/home
+
+If your web server requires the .cgi extension, then rename the home file.
+
+Download modules from http://www.customprogramming.net/
+

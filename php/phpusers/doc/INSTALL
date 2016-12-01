@@ -1,0 +1,70 @@
+#################################################################################################                
+#                                                                                                                
+#  Project           : phpUseronline                                                                                   
+#  File name         : INSTALL                                                                             
+#  Last Modified By  : Erich Fuchs                                                                               
+#  e-mail            : erich.fuchs@netone.at                                                                     
+#  Purpose           : INSTALLATION                                                                                 
+#                                                                                                                
+#################################################################################################                
+
+Intro:
+------
+
+!!! PLEASE LEAVE THE COPYRIGHT NOTICE INTACT !!! THANK YOU !!!
+
+Note: Please read the LICENSE file included in the distribution to get the license
+      this program is subject to.
+
+phpUseronline is a PHP script that allows you to display User's online
+on your website in a very convenient way.
+
+To see this script in action, you can browse the following websites :
+- http://www.netone.at
+- http://www.erotikbazar.com
+
+Requires:
+- PHP v3.x OR v4.x
+- mySQL 
+
+Not required but very useful:
+- phpMyAdmin would be a very good idea
+
+Changelog:
+----------
+1.10   	(04/20/2001): 	minor BUG's fixed.
+
+1.00   	(03/09/2001): 	First public release.
+
+Installation:
+-------------
+
+- unzip the distribution file into your http documents directory.
+
+- create the mysql database (usually phpUseronline) with mysqladmin.
+.) mysqladmin  -u<your_mysql_user> -p<your_mysql_pass> create phpUseronline
+
+- create the mysql tables. you have 2 options :
+
+1) mysql -u<your_mysql_user> -p<your_mysql_pass> phpUseronline<phpUseronline.sql
+
+2) use phpMyAdmin to run the SQL file 'phpUseronline.sql'
+
+- edit the variables in useronline.php to your need's.
+
+Support:
+--------
+
+ONLY use our Support-Forum at http://www.netone.at
+
+Upgrade:
+--------
+
+
+Future Feature's:
+-----------------
+
+
+----------------------------------------------------------
+(c) 2001 NETonE High Quality Networking (office@netone.at) 
+All rights reserved.

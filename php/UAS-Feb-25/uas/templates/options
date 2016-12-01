@@ -1,0 +1,9 @@
+<CENTER><FONT FACE="Arial" SIZE="+1"><B>{{$Message}}</B></FONT></CENTER>
+
+<FONT SIZE="+2">General Options</FONT><P>
+
+<UL>
+	<LI><A HREF="{{^SCRIPT_NAME}}?action=reconfigure">Reconfigure Module Support</A> - Run this after adding or removing a module
+	<LI><A HREF="http://www.customprogramming.net">Check for new version</A>
+</UL>
+

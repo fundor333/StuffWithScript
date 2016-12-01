@@ -1,0 +1,13 @@
+Installation Instructions:
+
+1.  Open truevirtual.cgi and enter the title of your own page as well as the url.
+2.  Modify the database file using the template included.
+3.  Upload the files to the server.   BE SURE TO UPLOAD IN ASCII MODE!!
+4.  Chmod truevirtual.cgi 755 and chmod database 666.
+5.  Rename your current index.html file something like home.html (or whatever you decided in step one)
+6.  Create a new index.shtml file containing the following line only:
+	<!--#exec cgi="/cgi-bin/truevirtual/truevirtual.cgi"-->
+
+Special Notes:
+• This script requires server side includes and will not work otherwise.
+

@@ -1,0 +1,299 @@
+#!/usr/bin/perl
+#
+# Universal Administration System
+#
+#-------------------------------------------------------------------------------
+# COPYRIGHT NOTICE
+#
+# Universal Administration System is copyright (c) 2001 by Customprogramming.NET,
+# all rights reserved.  The use of Universal Administration System is governed
+# by the Customprogramming.NET license agreement which is available online at:
+#    http://www.customprogramming.net/support/license
+#
+# Pursuant to the license agreement, this copyright notice may not be removed
+# or altered in any way.
+#-------------------------------------------------------------------------------
+#
+# Build Date: Sun Feb 25 22:43:08 EST 2001 (983158988)
+# Author(s): Hugh Buchanan, Justin Crowley
+# Filename: home
+#
+
+$VERSION = "1.1";
+$CONFIG{'function'} = "admin";
+$q = true;
+require "lib.config.pl";
+require "lib.sql.pl";
+require "tablespec.pl";
+$FORM{'Timestamp'} = time;
+$Timestamp = `date`;
+($DATE{'human'}, $DATE{'month'}, $DATE{'day'}, $DATE{'year'}) = &convdate(time);
+                                             
+&fetchit;
+&setvars("admin");
+if ($FORM{'action'} =~ /(delete|save|reconfigure)/)
+	{ $r = true; }
+if (($FORM{'fpc'}) && (!$DefinedTable{$FORM{'fpc'}}))
+	{
+	
+	&output("Error", "Error: Invalid Specification 496", true);
+	}
+&printHeader("html") unless $r;
+print &Parse(&open("$templates/$FORM{'header'}")) unless $r;
+if ($FORM{'action'} eq "add"){
+	if ($FORM{'fpc'})
+		{
+		print &Parse(&open("$templates/$FORM{'fpc'}/$FORM{'action'}"));
+		}
+	else
+		{
+		&output("Error", "Error: No Module Selected (494)");
+		}
+}
+elsif ($FORM{'action'} eq "edit"){
+	&tableLoadEntry;
+	print &Parse(&open("$templates/$FORM{'fpc'}/$FORM{'action'}"));
+}
+elsif ($FORM{'action'} eq "save"){
+	&tableSave;
+	print "Location: $ENV{'SCRIPT_NAME'}?fpc=$FORM{'fpc'}&Message=Data+Saved\n\n";
+}
+elsif ($FORM{'action'} eq "delete"){
+	if ($FORM{'confirm'})
+		{
+		&tableDelete;
+		print "Location: $ENV{'SCRIPT_NAME'}?fpc=$FORM{'fpc'}\n\n";
+		}
+	else
+		{
+		&printHeader("html");
+		print &Parse(&open("$templates/$FORM{'header'}"));
+		print &Parse(&open("$templates/$FORM{'action'}"));
+		print &Parse(&open("$templates/$FORM{'footer'}"));
+		}
+}
+elsif ($FORM{'action'} eq "view"){
+	&tableLoadEntry;
+	print &Parse(&open("$templates/$FORM{'fpc'}/$FORM{'action'}"));
+}
+elsif ($FORM{'action'} eq "options"){
+	print &Parse(&open("$templates/$FORM{'fpc'}/$FORM{'action'}"));
+}
+elsif ($FORM{'action'} eq "reconfigure"){
+	opendir(DIR, $templates);
+	my @rawLS = readdir(DIR);
+	closedir(DIR);
+	open (CONF, ">tablespec.pl");
+	print CONF "#"x80 . "\n";
+	print CONF "# (c) 2001 Customprogramming.net\n";
+	print CONF "# CFGID: " . time . "\n";
+	print CONF "#"x80 . "\n\n";
+	foreach $x (@rawLS)
+		{
+		if ($x =~ /^define\.(.*)/)
+			{
+			my $t = $1;
+			chomp $t;
+			open (FILE, "$templates\/$x") or &output("Error", "Unable to open $x");
+			my @FILE = <FILE>;
+			close (FILE);
+			chomp $FILE[0];
+			print CONF "\$DefinedTable{\'$t\'} = \"$FILE[0]\"\;\n";
+			}
+		}
+	print CONF "\n\n1;\n";
+	close(CONF);
+	print "Location: $ENV{'SCRIPT_NAME'}?action=options&Message=Configuration+Updated!\n\n";
+}
+else {
+	
+	if ($FORM{'fpc'})
+	{
+		$FORM{'action'} = "display";
+		&tableDisplay;
+		print &Parse(&open("$templates/$FORM{'fpc'}/$FORM{'action'}"));
+	}
+	else
+	{
+		foreach $fpc (keys %DefinedTable)
+		{
+			$fpc_name = $DefinedTable{$fpc};
+			$table_listing .= &Parse(&open("$templates/table_listing"));
+		}
+		$FORM{'action'} = "table_select";
+		print &Parse(&open("$templates/$FORM{'action'}"));
+	}
+}
+print &Parse(&open("$templates/$FORM{'footer'}")) unless $r;
+&Disconnect if ($CONFIG{'DATABASE'});
+exit;
+sub tableDelete
+{
+my ($CMD) = "DELETE FROM $FORM{'fpc'} WHERE (ID \= \"$FORM{'ID'}\")";
+($RET, $ERR) = &execCMD($CMD);
+}
+sub tableSave
+{
+	my @table = &getFields($FORM{'fpc'});
+	if ($field ne "ID") # What is this for?
+			
+	{
+		if ($FORM{'monkey'} eq "true")
+		{
+			$CMD = "INSERT INTO $FORM{'fpc'} (";
+		}
+		else
+		{
+		$CMD = "UPDATE $FORM{'fpc'} SET "; 
+		}			
+		
+		while (@table)
+		{
+			my $field = pop(@table);
+			if ($FORM{'monkey'} eq "true")
+			{
+				$CMD .= $field;
+			}
+			if($FORM{$field})
+			{
+				if ($FORM{'monkey'} eq "true")
+				{
+					$v .= " \'$FORM{$field}\'";
+				}
+				else
+				{
+					$CMD .= " $field = \"$FORM{$field}\"";
+				}
+			}else{	
+				if ($FORM{'monkey'} eq "true")
+				{
+					$v .= " \'\'";
+				}
+				else
+				{
+					$CMD .= " $field = null";
+				}
+			}
+			if (@table)
+			{
+				$CMD .= ",";
+				$v .= ",";
+			}
+		}
+	}
+	if ($FORM{'monkey'} eq "true")
+	{
+		$CMD .= " ) VALUES ($v)";
+	}
+	else
+	{
+		$CMD .= " WHERE (ID \= \"$FORM{'ID'}\")";
+	}
+	
+	($RET, $ERR) = &execCMD($CMD);
+	$FORM{'ERR'} = $ERR;
+	$FORM{'CMD'} = $CMD;
+}
+sub tableLoadEntry
+{
+my ($CMD) = "SELECT * FROM $FORM{'fpc'} WHERE (ID \= \"$FORM{'ID'}\")"; 
+($RET, $ERR) = &execCMD($CMD);
+	if ($RET)
+	{
+		while ($i = $STH->fetchrow_hashref)
+		{
+		%DATABASE = %$i;
+		}
+	}
+	else
+	{
+		&output("Error", "Error: $ERR<P>CMD: $CMD");
+	}
+}                                  
+sub tableDisplay
+{
+	if (!$FORM{'start'})
+	{
+		$FORM{'start'} = "0";
+	}
+	if (!$FORM{'inc'})
+	{
+		$FORM{'inc'} = "15";
+	}
+	$FORM{'next'} = ($FORM{'start'} + $FORM{'inc'});
+	$FORM{'previous'} = ($FORM{'start'} - $FORM{'inc'});
+	my ($COUNTING) = "SELECT COUNT(*) FROM $FORM{'fpc'}";	
+        ($RET, $ERR) = &execCMD($COUNTING);
+        if ($RET)
+                {
+                while ($i = $STH->fetchrow_arrayref)
+                        {
+                        ($number_of_results) = @$i;
+                        }
+                }                                                                      
+	
+	my ($CMD) = "SELECT * FROM $FORM{'fpc'} LIMIT $FORM{'start'}, $FORM{'inc'}";
+	if ($number_of_results > 0)
+	{
+		($RET, $ERR) = &execCMD($CMD);
+		if ($RET)
+		{
+			while ($i = $STH->fetchrow_hashref)
+			{
+				%DATABASE = %$i;
+				$list_data .= &Parse(&open("$templates/$FORM{'fpc'}/listing"));
+			}
+		}
+		else
+		{
+			&output("Error", "Error: $ERR<P>CMD: $CMD");
+		}
+		undef %DATABASE;
+		if ($FORM{'next'} < $number_of_results)
+		{
+			$DATABASE{'next-url'} = "[<A HREF=\"$ENV{'SCRIPT_NAME'}?fpc=$FORM{'fpc'}&inc=$FORM{'inc'}&start=$FORM{'next'}\">Next &gt;&gt;</A>]";
+		}
+		$DATABASE{'first-url'} = "[<A HREF=\"$ENV{'SCRIPT_NAME'}?fpc=$FORM{'fpc'}&inc=$FORM{'inc'}&start=0\">&lt;&lt; Begin</A>]";
+		$tc = 0;
+		$click_count = int(1 + ($FORM{'start'} / $FORM{'inc'}));
+                if ($click_count > 9)
+                {
+                        $count = ($click_count - 1);
+                        $step = int($FORM{'start'} - $FORM{'inc'});
+                        if ($step < 0)
+                        {
+                                $step = 0;
+                                $count = 1;
+                        }
+                        if ($count < 1)
+                        {
+                                $step = 0;
+                                $count = 1;
+                        }
+                }
+                else
+                {
+                        $step = 0;
+                        $count = 1;
+                }
+                while (($step < $number_of_results) && ($tc < 10))
+                {
+                        if ($step eq $FORM{'start'})
+                                {
+                                $DATABASE{'step-url'} .= <<EOM;
+[$count ]
+EOM
+                                }
+                        else
+                                {
+                                $DATABASE{'step-url'} .= <<EOM;
+[<A HREF="$ENV{'SCRIPT_NAME'}?fpc=$FORM{'fpc'}&inc=$FORM{'inc'}&start=$step">$count</A>]
+EOM
+                                }
+                        $step = ($step + $FORM{'inc'});
+                        $count++;
+                        $tc++;
+		}
+	}
+	$DATABASE{'list_data'} = $list_data;
+}
